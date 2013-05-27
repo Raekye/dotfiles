@@ -30,7 +30,7 @@ syntax enable
 execute pathogen#infect()
 execute pathogen#helptags()
 
-autocmd vimenter * if !argc() | NERDTree | endif
+" autocmd vimenter * if !argc() | NERDTree | endif
 
 let g:solarized_termcolors=256
 colorscheme solarized
