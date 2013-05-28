@@ -1,0 +1,6 @@
+Symlinks:
+ln -s source shortcut
+mklink /H shorcut_file source_file
+mklink /J shortcut_dir source_dir
+
+
