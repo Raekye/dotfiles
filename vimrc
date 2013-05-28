@@ -10,6 +10,7 @@ set nobackup
 set noswapfile
 set scrolloff=4
 set tabstop=4
+set shiftwidth=4
 set ignorecase
 set smartcase
 set autoread
