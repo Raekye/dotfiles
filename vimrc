@@ -16,6 +16,7 @@ set autoread
 set ruler
 set incsearch
 set backspace=indent,eol,start
+let NERDTreeShowLineNumbers=1
 
 set encoding=utf8
 set ffs=unix,dos
@@ -38,3 +39,4 @@ set background=dark
 
 map <C-n> :NERDTreeToggle<CR>
 map <C-p> :CtrlP<CR>
+map Q <Nop>
