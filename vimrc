@@ -34,9 +34,11 @@ execute pathogen#helptags()
 
 " autocmd vimenter * if !argc() | NERDTree | endif
 
-let g:solarized_termcolors=256
-colorscheme solarized
-set background=dark
+if has("gui_running")
+	let g:solarized_termcolors=256
+	colorscheme solarized
+	set background=dark
+endif
 
 map <C-n> :NERDTreeToggle<CR>
 map <C-p> :CtrlP<CR>
