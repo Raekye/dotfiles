@@ -6,6 +6,7 @@ if [ "$1" = "-u" ]; then
 		FOLDER="$2"
 	fi
 	sudo umount "$HOME/host/$FOLDER"
+	rm -rf "$HOME/host/$FOLDER"
 	echo "Dismounted $FOLDER"
 else
 	if [ "$#" -eq 0 ]; then
