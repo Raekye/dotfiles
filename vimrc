@@ -17,6 +17,9 @@ set autoread
 set ruler
 set incsearch
 set backspace=indent,eol,start
+set ssop-=options
+set ssop-=curdir
+set ssop+=sesdir
 let NERDTreeShowLineNumbers=1
 
 set encoding=utf8
