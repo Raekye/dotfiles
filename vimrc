@@ -40,7 +40,7 @@ execute pathogen#helptags()
 if has("gui_running")
 	let g:solarized_termcolors=256
 	colorscheme solarized
-	set background=dark
+	set background=light
 endif
 
 map <C-n> :NERDTreeToggle<CR>
