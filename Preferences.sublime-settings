@@ -1,12 +1,13 @@
 {
 	"color_scheme": "Packages/Color Scheme - Default/Solarized (Light).tmTheme",
-	"default_line_ending": "unix",
 	"default_encoding": "UTF-8",
+	"default_line_ending": "unix",
 	"draw_white_space": "all",
+	"font_size": 9,
 	"ignored_packages":
 	[
 	],
+	"spell_check": true,
 	"translate_tabs_to_spaces": false,
-	"word_wrap": true,
-	"spell_check": true
+	"word_wrap": true
 }
