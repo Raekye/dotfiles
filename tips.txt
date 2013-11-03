@@ -1,7 +1,8 @@
-Symlinks:
 ln -s source shortcut
 mklink /H shorcut_file source_file
 mklink /J shortcut_dir source_dir
 ~/.config/sublime-text-3/Package/User/Preferences.sublime-settings
 sudo iptables -A INPUT -p tcp --dport ssh -j ACCEPT
 sudo iptables -I INPUT 1 -p tcp --dport 80 -j ACCEPT
+apt-get -f install
+/etc/cron.daily/trim
