@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Eclipse
-Comment=Eclipse Standard Kepler
+Comment=Eclipse Kepler
 Exec=eclipse
 Icon=/opt/eclipse/icon.xpm
 Terminal=false
