@@ -6,3 +6,5 @@ sudo iptables -A INPUT -p tcp --dport ssh -j ACCEPT
 sudo iptables -I INPUT 1 -p tcp --dport 80 -j ACCEPT
 apt-get -f install
 /etc/cron.daily/trim
+
+git curl vim-gnome nautilus-open-terminal python3 python3-dev ruby ruby-dev haskell-platform erlang openjdk-7-jdk checkinstall build-essential texlive texlive-latex-extra
