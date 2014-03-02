@@ -10,3 +10,5 @@ apt-get -f install
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 git curl vim-gnome nautilus-open-terminal python3 python3-dev ruby ruby-dev haskell-platform erlang openjdk-7-jdk checkinstall build-essential texlive texlive-latex-extra
+
+git vim-X11 nautilus-open-terminal texlive
