@@ -9,5 +9,7 @@
 	],
 	"spell_check": true,
 	"translate_tabs_to_spaces": false,
-	"word_wrap": true
+	"word_wrap": true,
+	"enable_tab_scrolling": false,
+	"auto_match_enabled": false
 }
