@@ -3,6 +3,7 @@
 " - NERDTree
 " - CtrlP
 " - Solarized (theme)
+" - Fugitive
 
 set number
 set autoindent
