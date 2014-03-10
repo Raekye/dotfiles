@@ -21,7 +21,10 @@ set backspace=indent,eol,start
 set ssop-=options
 set ssop-=curdir
 set ssop+=sesdir
+set showcmd
 let NERDTreeShowLineNumbers=1
+let Tlist_Use_Right_Window=1
+let mapleader="\\"
 
 set encoding=utf8
 set ffs=unix,dos
@@ -47,3 +50,4 @@ endif
 map <C-n> :NERDTreeToggle<CR>
 map <C-p> :CtrlP<CR>
 map Q <Nop>
+map <C-m> :TlistToggle<CR>
