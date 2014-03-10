@@ -16,3 +16,7 @@ git clone https://github.com/kien/ctrlp.vim.git
 # Solarized
 cd ~/.vim/bundle
 git clone git://github.com/altercation/vim-colors-solarized.git
+
+# Fugitive
+cd ~/.vim/bundle
+git clone git://github.com/tpope/vim-fugitive.git
