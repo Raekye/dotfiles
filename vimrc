@@ -4,6 +4,7 @@
 " - CtrlP
 " - Solarized (theme)
 " - Fugitive
+" - Taglist
 
 set number
 set autoindent
