@@ -1,6 +1,6 @@
-unbind C-b
-set -g prefix C-a
-bind a send-prefix
+#unbind C-b
+#set -g prefix C-a
+#bind a send-prefix
 
 unbind-key j
 unbind-key k

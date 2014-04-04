@@ -5,6 +5,7 @@
 " - Solarized (theme)
 " - Fugitive
 " - Taglist
+" - Sleuth
 
 set number
 set autoindent
