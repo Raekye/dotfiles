@@ -26,3 +26,7 @@ cd ~/.vim/bundle
 wget -O taglist-46.zip http://vim.sourceforge.net/scripts/download_script.php?src_id=19574
 unzip taglist-46.zip -d taglist-46
 rm taglist-46.zip
+
+# Sleuth
+cd ~/.vim/bundle
+git clone https://github.com/tpope/vim-sleuth.git
