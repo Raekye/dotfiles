@@ -8,12 +8,10 @@
 " - Sleuth
 
 set number
-set autoindent
+set smartindent
 set nobackup
 set noswapfile
 set scrolloff=4
-set tabstop=4
-set shiftwidth=4
 set ignorecase
 set smartcase
 set autoread
@@ -28,13 +26,18 @@ let NERDTreeShowLineNumbers=1
 let Tlist_Use_Right_Window=1
 let mapleader="\\"
 
+filetype on
+
+set shiftwidth=4
+set tabstop=4
+
+autocmd FileType ruby setlocal expandtab shiftwidth=2 softtabstop=2
+
 set encoding=utf8
 set ffs=unix,dos
 
 set list
 set listchars=tab:>\ ,trail:-,nbsp:+,eol:$
-
-filetype plugin on
 
 syntax enable
 
