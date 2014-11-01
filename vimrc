@@ -3,9 +3,7 @@
 " - NERDTree
 " - CtrlP
 " - Solarized (theme)
-" - Fugitive
 " - Taglist
-" - Sleuth
 
 set number
 set smartindent
@@ -25,6 +23,7 @@ set showcmd
 let NERDTreeShowLineNumbers=1
 let Tlist_Use_Right_Window=1
 let mapleader="\\"
+let g:ctrlp_show_hidden = 1
 
 filetype on
 
@@ -56,3 +55,5 @@ map <C-n> :NERDTreeToggle<CR>
 map <C-p> :CtrlP<CR>
 map Q <Nop>
 map <C-m> :TlistToggle<CR>
+map <C-a> :A<CR>
+map <C-b> :YcmDiag<CR>
