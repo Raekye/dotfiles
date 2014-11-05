@@ -21,9 +21,15 @@ set ssop-=curdir
 set ssop+=sesdir
 set showcmd
 let NERDTreeShowLineNumbers=1
-let Tlist_Use_Right_Window=1
+let NERDTreeShowHidden=1
 let mapleader="\\"
 let g:ctrlp_show_hidden = 1
+set laststatus=2
+set wildmenu
+let g:bufferline_echo = 0
+let g:airline#extensions#bufferline#enabled = 1
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ctrlp_working_path_mode = 0
 
 filetype on
 
@@ -43,17 +49,26 @@ syntax enable
 execute pathogen#infect()
 execute pathogen#helptags()
 
-" autocmd vimenter * if !argc() | NERDTree | endif
+let g:solarized_termcolors=256
+colorscheme solarized
+set background=light
 
-if has("gui_running")
-	let g:solarized_termcolors=256
-	colorscheme solarized
-	set background=light
-endif
+function! C_include_guard()
+	let basename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
+	let include_guard = "__" . basename . "_"
+	call append(0, "#ifndef " . include_guard)
+	call append(1, "#define " . include_guard)
+	call append(line("$"), "#endif /* " . include_guard . " */")
+endfunction
 
 map <C-n> :NERDTreeToggle<CR>
 map <C-p> :CtrlP<CR>
 map Q <Nop>
-map <C-m> :TlistToggle<CR>
+map <C-m> :TagbarToggle<CR>
 map <C-a> :A<CR>
-map <C-b> :YcmDiag<CR>
+map <C-b> :YcmForceCompileAndDiagnostics<CR>
+map <C-i> :call C_include_guard()<CR>
+map <C-j> :bp<CR>
+map <C-k> :bn<CR>
+map <C-l> :ls<CR>:buffer<Space>
+map <C-h> <C-^>

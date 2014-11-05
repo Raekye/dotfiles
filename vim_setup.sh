@@ -1,4 +1,8 @@
+#!/usr/bin/bash
+
 # Requires: ctags, cmake, clang
+
+set -e
 
 cd "$HOME"
 rm -rf ".vim"
@@ -18,13 +22,29 @@ git clone https://github.com/scrooloose/nerdtree.git
 # CtrlP
 git clone https://github.com/kien/ctrlp.vim.git
 
+# Surround
+git clone https://github.com/tpope/vim-surround.git
+
 # Solarized
-git clone git://github.com/altercation/vim-colors-solarized.git
+git clone https://github.com/altercation/vim-colors-solarized.git
 
 # Taglist
-wget -O taglist-46.zip http://vim.sourceforge.net/scripts/download_script.php?src_id=19574
-unzip taglist-46.zip -d taglist-46
-rm taglist-46.zip
+git clone https://github.com/majutsushi/tagbar.git
+
+# Airline
+git clone https://github.com/bling/vim-airline.git
+
+# Bufferline
+git clone https://github.com/bling/vim-bufferline
+
+# Easymotion
+git clone https://github.com/Lokaltog/vim-easymotion
+
+# Rails
+git clone git://github.com/tpope/vim-rails.git
+
+# Bundler
+git clone git://github.com/tpope/vim-bundler.git
 
 # YouCompleteMe
 git clone https://github.com/Valloric/YouCompleteMe.git you_complete_me
