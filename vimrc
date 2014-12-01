@@ -30,6 +30,7 @@ let g:bufferline_echo = 0
 let g:airline#extensions#bufferline#enabled = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ctrlp_working_path_mode = 0
+let g:solarized_visibility = "low"
 
 filetype on
 
@@ -65,10 +66,11 @@ map <C-n> :NERDTreeToggle<CR>
 map <C-p> :CtrlP<CR>
 map Q <Nop>
 map <C-m> :TagbarToggle<CR>
-map <C-a> :A<CR>
+map <C-g> :A<CR>
 map <C-b> :YcmForceCompileAndDiagnostics<CR>
 map <C-i> :call C_include_guard()<CR>
 map <C-j> :bp<CR>
 map <C-k> :bn<CR>
 map <C-l> :ls<CR>:buffer<Space>
 map <C-h> <C-^>
+map <C-f> :b#<CR>
