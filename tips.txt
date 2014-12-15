@@ -13,6 +13,11 @@ git curl vim-gnome nautilus-open-terminal python3 python3-dev ruby ruby-dev hask
 
 git vim-X11 nautilus-open-terminal texlive
 
+cat /proc/sys/vm/swappiness
+sysctl vm.swappiness=2
+swapoff -a
+swapon -a
+
 ## Hmmm
 - `.profile` read by `sh` login shells
 	- `bash`, often being backwards compatible, often reads this file too (login shell only)
