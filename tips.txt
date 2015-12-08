@@ -12,3 +12,10 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 git curl vim-gnome nautilus-open-terminal python3 python3-dev ruby ruby-dev haskell-platform erlang openjdk-7-jdk checkinstall build-essential texlive texlive-latex-extra
 
 git vim-X11 nautilus-open-terminal texlive
+
+## Hmmm
+- `.profile` read by `sh` login shells
+	- `bash`, often being backwards compatible, often reads this file too (login shell only)
+- `.bash_profile` only read by `bash` login shells
+- `.bashrc` only read by `bash` non-login, interactive shells
+- often, `.bash_profile` reads `.bashrc` to maintain same config between login and non-login shells

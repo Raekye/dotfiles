@@ -74,3 +74,4 @@ map <C-k> :bn<CR>
 map <C-l> :ls<CR>:buffer<Space>
 map <C-h> <C-^>
 map <C-f> :b#<CR>
+map <C-s> <esc>:update<CR>
