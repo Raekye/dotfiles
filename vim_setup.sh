@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-# Requires: ctags, cmake, clang
+# Requires: ctags, cmake, clang, python-devel
 
 set -e
 
