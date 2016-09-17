@@ -19,8 +19,19 @@ swapoff -a
 swapon -a
 
 ## Hmmm
+- `shopt -q login_shell && echo 'Login shell' || echo 'Not login shell'`
+- `[[ "$-" == *i* ]] && echo 'Interactive' || echo 'Not interactive'`
+
 - `.profile` read by `sh` login shells
 	- `bash`, often being backwards compatible, often reads this file too (login shell only)
 - `.bash_profile` only read by `bash` login shells
 - `.bashrc` only read by `bash` non-login, interactive shells
 - often, `.bash_profile` reads `.bashrc` to maintain same config between login and non-login shells
+
+## Double fork daemons
+- sid -> pgid -> pid
+- every session can have a tty, only the session leader can acquire a tty
+- `setsid` creates a new process group and session (sid = pgid = pid)
+- after 1 fork and no setsid, the child is still part of the same session and can get control of the original tty (if the session had one)
+- after 1 fork and setsid, the child is a session leader and can acquire a tty
+- after fork, setsid, and fork, the grandchild is adopted by init, and is not a session leader so cannot acquire a tty

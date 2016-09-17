@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 # Requires: ctags, cmake, clang, python-devel
 
@@ -32,13 +32,16 @@ git clone https://github.com/altercation/vim-colors-solarized.git
 git clone https://github.com/majutsushi/tagbar.git
 
 # Airline
-git clone https://github.com/bling/vim-airline.git
+git clone https://github.com/vim-airline/vim-airline.git
 
 # Bufferline
-git clone https://github.com/bling/vim-bufferline
+git clone https://github.com/bling/vim-bufferline.git
+
+# Airline themes
+#git clone https://github.com/vim-airline/vim-airline-themes.git
 
 # Easymotion
-git clone https://github.com/Lokaltog/vim-easymotion
+git clone https://github.com/Lokaltog/vim-easymotion.git
 
 # Rails
 git clone git://github.com/tpope/vim-rails.git
