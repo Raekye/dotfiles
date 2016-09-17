@@ -32,12 +32,16 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ctrlp_working_path_mode = 0
 let g:solarized_visibility = "low"
 
+let g:ctrlp_custom_ignore = { 'file': '\v\.(jar|class)$', }
+let g:ctrlp_max_files=0
+
 filetype on
 
 set shiftwidth=4
 set tabstop=4
 
 autocmd FileType ruby setlocal expandtab shiftwidth=2 softtabstop=2
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
 set encoding=utf8
 set ffs=unix,dos
