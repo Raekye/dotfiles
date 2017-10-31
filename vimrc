@@ -40,6 +40,11 @@ let g:indentLine_leadingSpaceChar = '·'
 
 let g:gundo_prefer_python3 = 1
 
+if executable('ag')
+	let g:ackprg = 'ag --vimgrep'
+endif
+let g:ack_mappings = { "o": "<CR><C-W><C-W>:ccl<CR>" }
+
 set encoding=utf8
 set ffs=unix,dos
 set list
@@ -76,6 +81,7 @@ Plug 'bling/vim-bufferline'
 Plug 'Valloric/YouCompleteMe'
 Plug 'Yggdroot/indentLine'
 Plug 'sjl/gundo.vim'
+Plug 'mileszs/ack.vim'
 
 call plug#end()
 
@@ -95,13 +101,21 @@ endfunction
 map Q <Nop>
 map <C-n> :NERDTreeToggle<CR>
 map <C-p> :CtrlP<CR>
-map <C-i> :CtrlPBuffer<CR>
+map <C-l> :CtrlPBuffer<CR>
 map <C-c> :TagbarToggle<CR>
-map <leader>a :A<CR>
 map <C-b> :YcmForceCompileAndDiagnostics<CR>
 map <C-j> :bp<CR>
 map <C-k> :bn<CR>
-map <C-l> :ls<CR>:buffer<Space>
+map <C-i> :ls<CR>:buffer<space>
 map <C-h> <C-^>
 map <C-f> :b#<CR>
 map <C-g> :GundoToggle<CR>
+map <C-[> <C-w><C-w>:ccl<CR>
+map <leader>a :A<CR>
+map <leader>g :Ack!<space>
+map <leader>r <C-\>c
+map <leader>e <C-]>
+map <leader>w <C-\>s
+map <leader>f :cs f c<space>
+map <leader>d :cs f g<space>
+map <leader>s :cs f s<space>
