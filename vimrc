@@ -1,39 +1,55 @@
-" Plugins:
-" - Pathogen
-" - NERDTree
-" - CtrlP
-" - Solarized (theme)
-" - Taglist
 
+set exrc
+set secure
 set number
-set smartindent
-set nobackup
-set noswapfile
-set scrolloff=4
+set ruler
+set showcmd
+set smartindent " less strict than cindent
+set autoindent
 set ignorecase
 set smartcase
-set autoread
-set ruler
-set incsearch
+set wildmenu " command line completion
+set nobackup " make backup before overwriting, and leave it around
+set noswapfile " use swapfile for buffer
+set autoread " update if changed externally and not modified locally
+set incsearch " ctrl-g and ctrl-t to move to next and previous match
+set scrolloff=4
+set laststatus=2 " always show status line for last window
 set backspace=indent,eol,start
 set ssop-=options
 set ssop-=curdir
 set ssop+=sesdir
-set showcmd
+set cscopequickfix=s-,g-,c-
+
+let mapleader=","
+
 let NERDTreeShowLineNumbers=1
 let NERDTreeShowHidden=1
-let mapleader="\\"
-let g:ctrlp_show_hidden = 1
-set laststatus=2
-set wildmenu
-let g:bufferline_echo = 0
-let g:airline#extensions#bufferline#enabled = 1
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ctrlp_working_path_mode = 0
-let g:solarized_visibility = "low"
 
-let g:ctrlp_custom_ignore = { 'file': '\v\.(jar|class)$', }
-let g:ctrlp_max_files=0
+let g:ctrlp_show_hidden = 1
+let g:ctrlp_working_path_mode = 0 " set local working directory to pwd
+let g:ctrlp_max_files = 0
+
+let g:airline#extensions#tabline#enabled = 1
+
+let g:bufferline_echo = 0 " don't show in command bar
+
+let g:ycm_autoclose_preview_window_after_completion = 1
+
+let g:indentLine_leadingSpaceEnabled = 1
+let g:indentLine_leadingSpaceChar = '·'
+
+let g:gundo_prefer_python3 = 1
+
+let g:ack_mappings = { "o": "<CR>:ccl<CR>" }
+if executable('ag')
+	let g:ackprg = 'ag --vimgrep'
+endif
+
+set encoding=utf8
+set ffs=unix,dos
+set list
+set listchars=tab:>\ ,trail:-,nbsp:+,eol:$
 
 filetype on
 
@@ -42,19 +58,39 @@ set tabstop=4
 
 autocmd FileType ruby setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
-
-set encoding=utf8
-set ffs=unix,dos
-
-set list
-set listchars=tab:>\ ,trail:-,nbsp:+,eol:$
+autocmd QuickFixCmdPost cscope copen
+autocmd User YcmLocationOpened map o <CR>:lcl<CR>
 
 syntax enable
 
-execute pathogen#infect()
-execute pathogen#helptags()
+"execute pathogen#infect()
+"execute pathogen#helptags()
+call plug#begin('~/.vim/plugged')
+
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'majutsushi/tagbar'
+Plug 'easymotion/vim-easymotion'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-characterize'
+Plug 'vim-syntastic/syntastic'
+Plug 'altercation/vim-colors-solarized'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'bling/vim-bufferline'
+Plug 'Valloric/YouCompleteMe'
+Plug 'Yggdroot/indentLine'
+Plug 'sjl/gundo.vim'
+Plug 'mileszs/ack.vim'
+Plug 'airblade/vim-gitgutter'
+
+call plug#end()
 
 let g:solarized_termcolors=256
+let g:solarized_visibility = "low"
 colorscheme solarized
 set background=light
 
@@ -66,16 +102,28 @@ function! C_include_guard()
 	call append(line("$"), "#endif /* " . include_guard . " */")
 endfunction
 
+map Q <Nop>
 map <C-n> :NERDTreeToggle<CR>
 map <C-p> :CtrlP<CR>
-map Q <Nop>
-map <C-m> :TagbarToggle<CR>
-map <C-g> :A<CR>
-map <C-b> :YcmForceCompileAndDiagnostics<CR>
-map <C-i> :call C_include_guard()<CR>
+map <C-l> :CtrlPBuffer<CR>
+map <C-c> :TagbarToggle<CR>
+map <C-b> :YcmForceCompileAndDiagnostics<CR>:YcmDiags<CR>
 map <C-j> :bp<CR>
 map <C-k> :bn<CR>
-map <C-l> :ls<CR>:buffer<Space>
 map <C-h> <C-^>
 map <C-f> :b#<CR>
-map <C-s> <esc>:update<CR>
+map <C-g> :GundoToggle<CR>
+map <C-[> :ccl<CR>:lcl<CR>
+map <C-w>, :vertical resize -4<CR>
+map <C-w>. :vertical resize +4<CR>
+map <C-w>; :resize -4<CR>
+map <C-w>' :resize +4<CR>
+nmap <leader>l :ls<CR>:buffer<space>
+nmap <leader>a :A<CR>
+nmap <leader>g :Ack!<space>
+nmap <leader>r <C-\>c
+nmap <leader>e <C-]>
+nmap <leader>w <C-\>s
+nmap <leader>f :cs f c<space>
+nmap <leader>d :cs f g<space>
+nmap <leader>s :cs f s<space>
