@@ -19,6 +19,7 @@ set backspace=indent,eol,start
 set ssop-=options
 set ssop-=curdir
 set ssop+=sesdir
+set cscopequickfix=s-,g-,c-
 
 let mapleader=","
 
@@ -40,10 +41,10 @@ let g:indentLine_leadingSpaceChar = '·'
 
 let g:gundo_prefer_python3 = 1
 
+let g:ack_mappings = { "o": "<CR>:ccl<CR>" }
 if executable('ag')
 	let g:ackprg = 'ag --vimgrep'
 endif
-let g:ack_mappings = { "o": "<CR><C-W><C-W>:ccl<CR>" }
 
 set encoding=utf8
 set ffs=unix,dos
@@ -57,6 +58,8 @@ set tabstop=4
 
 autocmd FileType ruby setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+autocmd QuickFixCmdPost cscope copen
+autocmd User YcmLocationOpened map o <CR>:lcl<CR>
 
 syntax enable
 
@@ -82,6 +85,7 @@ Plug 'Valloric/YouCompleteMe'
 Plug 'Yggdroot/indentLine'
 Plug 'sjl/gundo.vim'
 Plug 'mileszs/ack.vim'
+Plug 'airblade/vim-gitgutter'
 
 call plug#end()
 
@@ -103,19 +107,23 @@ map <C-n> :NERDTreeToggle<CR>
 map <C-p> :CtrlP<CR>
 map <C-l> :CtrlPBuffer<CR>
 map <C-c> :TagbarToggle<CR>
-map <C-b> :YcmForceCompileAndDiagnostics<CR>
+map <C-b> :YcmForceCompileAndDiagnostics<CR>:YcmDiags<CR>
 map <C-j> :bp<CR>
 map <C-k> :bn<CR>
-map <C-i> :ls<CR>:buffer<space>
 map <C-h> <C-^>
 map <C-f> :b#<CR>
 map <C-g> :GundoToggle<CR>
-map <C-[> <C-w><C-w>:ccl<CR>
-map <leader>a :A<CR>
-map <leader>g :Ack!<space>
-map <leader>r <C-\>c
-map <leader>e <C-]>
-map <leader>w <C-\>s
-map <leader>f :cs f c<space>
-map <leader>d :cs f g<space>
-map <leader>s :cs f s<space>
+map <C-[> :ccl<CR>:lcl<CR>
+map <C-w>, :vertical resize -4<CR>
+map <C-w>. :vertical resize +4<CR>
+map <C-w>; :resize -4<CR>
+map <C-w>' :resize +4<CR>
+nmap <leader>l :ls<CR>:buffer<space>
+nmap <leader>a :A<CR>
+nmap <leader>g :Ack!<space>
+nmap <leader>r <C-\>c
+nmap <leader>e <C-]>
+nmap <leader>w <C-\>s
+nmap <leader>f :cs f c<space>
+nmap <leader>d :cs f g<space>
+nmap <leader>s :cs f s<space>
