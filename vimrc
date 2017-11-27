@@ -117,14 +117,13 @@ map Q <Nop>
 map <C-n> :NERDTreeToggle<CR>
 map <C-p> :CtrlP<CR>
 map <C-l> :CtrlPBuffer<CR>
-map <C-c> :TagbarToggle<CR>
+map <C-g> :TagbarToggle<CR>
 map <C-b> :YcmForceCompileAndDiagnostics<CR>:YcmDiags<CR>
 map <C-j> :bp<CR>
 map <C-k> :bn<CR>
 map <C-h> <C-^>
 map <C-f> :b#<CR>
-map <C-g> :GundoToggle<CR>
-map <C-[> :ccl<CR>:lcl<CR>
+map <C-c> :ccl<CR>:lcl<CR>
 map <C-w>, :vertical resize -4<CR>
 map <C-w>. :vertical resize +4<CR>
 map <C-w>; :resize -4<CR>
@@ -138,3 +137,4 @@ nmap <leader>w <C-\>s
 nmap <leader>f :cs f c<space>
 nmap <leader>d :cs f g<space>
 nmap <leader>s :cs f s<space>
+nmap <leader>u :GundoToggle<CR>
