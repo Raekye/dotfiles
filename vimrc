@@ -34,8 +34,6 @@ let g:airline#extensions#tabline#enabled = 1
 
 let g:bufferline_echo = 0 " don't show in command bar
 
-let g:ycm_autoclose_preview_window_after_completion = 1
-
 let g:indentLine_leadingSpaceEnabled = 1
 let g:indentLine_leadingSpaceChar = '·'
 
@@ -45,6 +43,16 @@ let g:ack_mappings = { "o": "<CR>:ccl<CR>" }
 if executable('ag')
 	let g:ackprg = 'ag --vimgrep'
 endif
+
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_key_list_select_completion = []
+let g:ycm_key_list_previous_completion = []
+
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<C-j>"
+let g:UltiSnipsJumpBackwardTrigger="<C-k>"
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 
 set encoding=utf8
 set ffs=unix,dos
@@ -76,16 +84,19 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-characterize'
-Plug 'vim-syntastic/syntastic'
+"Plug 'vim-syntastic/syntastic'
 Plug 'altercation/vim-colors-solarized'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'bling/vim-bufferline'
-Plug 'Valloric/YouCompleteMe'
 Plug 'Yggdroot/indentLine'
 Plug 'sjl/gundo.vim'
 Plug 'mileszs/ack.vim'
 Plug 'airblade/vim-gitgutter'
+Plug 'ervandew/supertab'
+Plug 'Valloric/YouCompleteMe'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 call plug#end()
 
@@ -106,14 +117,13 @@ map Q <Nop>
 map <C-n> :NERDTreeToggle<CR>
 map <C-p> :CtrlP<CR>
 map <C-l> :CtrlPBuffer<CR>
-map <C-c> :TagbarToggle<CR>
+map <C-g> :TagbarToggle<CR>
 map <C-b> :YcmForceCompileAndDiagnostics<CR>:YcmDiags<CR>
 map <C-j> :bp<CR>
 map <C-k> :bn<CR>
 map <C-h> <C-^>
 map <C-f> :b#<CR>
-map <C-g> :GundoToggle<CR>
-map <C-[> :ccl<CR>:lcl<CR>
+map <C-c> :ccl<CR>:lcl<CR>
 map <C-w>, :vertical resize -4<CR>
 map <C-w>. :vertical resize +4<CR>
 map <C-w>; :resize -4<CR>
@@ -127,3 +137,4 @@ nmap <leader>w <C-\>s
 nmap <leader>f :cs f c<space>
 nmap <leader>d :cs f g<space>
 nmap <leader>s :cs f s<space>
+nmap <leader>u :GundoToggle<CR>
