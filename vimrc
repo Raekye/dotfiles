@@ -13,6 +13,7 @@ set nobackup " make backup before overwriting, and leave it around
 set noswapfile " use swapfile for buffer
 set autoread " update if changed externally and not modified locally
 set incsearch " ctrl-g and ctrl-t to move to next and previous match
+set breakindent
 set scrolloff=4
 set laststatus=2 " always show status line for last window
 set backspace=indent,eol,start
@@ -45,14 +46,18 @@ if executable('ag')
 endif
 
 let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_key_list_select_completion = []
-let g:ycm_key_list_previous_completion = []
+"let g:ycm_key_list_select_completion = []
+"let g:ycm_key_list_previous_completion = []
 
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<C-j>"
 let g:UltiSnipsJumpBackwardTrigger="<C-k>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
+
+"let g:ale_completion_enabled = 1
+"let g:ale_c_parse_compile_commands = 1
+let g:ale_linters = { 'c': [], 'cpp': [] }
 
 set encoding=utf8
 set ffs=unix,dos
@@ -93,10 +98,12 @@ Plug 'Yggdroot/indentLine'
 Plug 'sjl/gundo.vim'
 Plug 'mileszs/ack.vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'ervandew/supertab'
+"Plug 'ervandew/supertab'
 Plug 'Valloric/YouCompleteMe'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+"Plug 'SirVer/ultisnips'
+"Plug 'honza/vim-snippets'
+Plug 'tomlion/vim-solidity'
+Plug 'w0rp/ale'
 
 call plug#end()
 
@@ -104,14 +111,6 @@ let g:solarized_termcolors=256
 let g:solarized_visibility = "low"
 colorscheme solarized
 set background=light
-
-function! C_include_guard()
-	let basename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
-	let include_guard = "__" . basename . "_"
-	call append(0, "#ifndef " . include_guard)
-	call append(1, "#define " . include_guard)
-	call append(line("$"), "#endif /* " . include_guard . " */")
-endfunction
 
 map Q <Nop>
 map <C-n> :NERDTreeToggle<CR>
@@ -122,12 +121,7 @@ map <C-b> :YcmForceCompileAndDiagnostics<CR>:YcmDiags<CR>
 map <C-j> :bp<CR>
 map <C-k> :bn<CR>
 map <C-h> <C-^>
-map <C-f> :b#<CR>
 map <C-c> :ccl<CR>:lcl<CR>
-map <C-w>, :vertical resize -4<CR>
-map <C-w>. :vertical resize +4<CR>
-map <C-w>; :resize -4<CR>
-map <C-w>' :resize +4<CR>
 nmap <leader>l :ls<CR>:buffer<space>
 nmap <leader>a :A<CR>
 nmap <leader>g :Ack!<space>
