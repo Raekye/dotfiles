@@ -107,6 +107,8 @@ Plug 'w0rp/ale'
 
 call plug#end()
 
+autocmd FileType nerdtree IndentLinesDisable
+
 let g:solarized_termcolors=256
 let g:solarized_visibility = "low"
 colorscheme solarized
