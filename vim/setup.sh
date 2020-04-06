@@ -4,8 +4,8 @@
 
 set -e
 
-cd vim
+cd "$(dirname "$0")"
 
 mkdir autoload
 
-wget -O autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+curl -o autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
