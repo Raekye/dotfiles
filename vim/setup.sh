@@ -10,4 +10,4 @@ mkdir autoload
 
 curl -o autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-vim -es -u vimrc -i NONE -c PlugInstall -c qa
+vim -Nes -c PlugInstall -c qa
