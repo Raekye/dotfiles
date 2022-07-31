@@ -14,3 +14,4 @@ bind-key l select-pane -R
 setw -g mode-keys vi
 set -g default-terminal "screen-256color"
 set -s escape-time 0
+#set -s window-size smallest

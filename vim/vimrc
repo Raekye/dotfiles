@@ -21,6 +21,7 @@ set ssop-=options
 set ssop-=curdir
 set ssop+=sesdir
 set cscopequickfix=s-,g-,c-
+set cscopetag
 
 let mapleader=","
 
@@ -30,6 +31,7 @@ let NERDTreeShowHidden=1
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_working_path_mode = 0 " set local working directory to pwd
 let g:ctrlp_max_files = 0
+let g:ctrlp_user_command = 'ag -l --nocolor -g "" %s'
 
 let g:airline#extensions#tabline#enabled = 1
 
@@ -37,6 +39,8 @@ let g:bufferline_echo = 0 " don't show in command bar
 
 let g:indentLine_leadingSpaceEnabled = 1
 let g:indentLine_leadingSpaceChar = '·'
+
+let g:markdown_syntax_conceal=0
 
 let g:gundo_prefer_python3 = 1
 
@@ -46,6 +50,7 @@ if executable('ag')
 endif
 
 let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_always_populate_location_list = 1
 "let g:ycm_key_list_select_completion = []
 "let g:ycm_key_list_previous_completion = []
 
@@ -57,7 +62,12 @@ let g:UltiSnipsEditSplit="vertical"
 
 "let g:ale_completion_enabled = 1
 "let g:ale_c_parse_compile_commands = 1
-let g:ale_linters = { 'c': [], 'cpp': [] }
+"let g:ale_linters = { 'c': [], 'cpp': [], 'rust': ['analyzer'], }
+let g:ale_fixers = { '*': ['remove_trailing_lines', 'trim_whitespace'], 'rust': ['rustfmt'], }
+let g:ale_fix_on_save = 1
+
+"let g:rustfmt_autosave = 1
+"let g:rustfmt_fail_silently = 1
 
 set encoding=utf8
 set ffs=unix,dos
@@ -99,11 +109,11 @@ Plug 'sjl/gundo.vim'
 Plug 'mileszs/ack.vim'
 Plug 'airblade/vim-gitgutter'
 "Plug 'ervandew/supertab'
-"Plug 'Valloric/YouCompleteMe'
+"Plug 'ycm-core/YouCompleteMe'
 "Plug 'SirVer/ultisnips'
 "Plug 'honza/vim-snippets'
 Plug 'tomlion/vim-solidity'
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 
 call plug#end()
 
@@ -127,10 +137,11 @@ map <C-c> :ccl<CR>:lcl<CR>
 nmap <leader>l :ls<CR>:buffer<space>
 nmap <leader>a :A<CR>
 nmap <leader>g :Ack!<space>
-nmap <leader>r <C-\>c
-nmap <leader>e <C-]>
-nmap <leader>w <C-\>s
-nmap <leader>f :cs f c<space>
-nmap <leader>d :cs f g<space>
-nmap <leader>s :cs f s<space>
+nmap <leader>w :Gtags -s <C-R>=expand("<cword>")<CR><CR>
+nmap <leader>e :Gtags <C-R>=expand("<cword>")<CR><CR>
+nmap <leader>r :Gtags -r <C-R>=expand("<cword>")<CR><CR>
+nmap <leader>s :Gtags -s<space>
+nmap <leader>d :Gtags<space>
+nmap <leader>f :Gtags -r<space>
 nmap <leader>u :GundoToggle<CR>
+nmap <leader>v :lnext<CR>

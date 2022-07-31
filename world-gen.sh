@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-find . -regex '.*\.\(h\|c\|hpp\|cpp\|cc\)' > cscope.files
+#find . -regex '.*\.\(h\|c\|hpp\|cpp\|cc\)' > cscope.files
+find . -name '*.c' -o -name '*.h' -o -name '*.cpp' -o -name '*.hpp' -o -name '*.cc' > cscope.files
 # -b: only build database
 # -q: build reverse database, makes things faster
 # -k: kernel mode, don't look in default include dir (typically `/usr/include`)
