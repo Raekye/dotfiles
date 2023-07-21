@@ -1,0 +1,12 @@
+[user]
+	name = Raekye
+	email = Raekye@users.noreply.github.com
+	signingKey = 0x83BB9B72259502EF!
+[init]
+	defaultBranch = master
+[pull]
+	rebase = false
+[log]
+	showSignature = true
+[commit]
+	gpgSign = false

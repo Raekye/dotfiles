@@ -22,6 +22,19 @@ set ssop-=curdir
 set ssop+=sesdir
 set cscopequickfix=s-,g-,c-
 set cscopetag
+set hidden
+
+set encoding=utf8
+set ffs=unix,dos
+set list
+set listchars=tab:>\ ,trail:-,nbsp:+,eol:$
+
+set shiftwidth=4
+set tabstop=4
+
+set conceallevel=0
+
+filetype on
 
 let mapleader=","
 
@@ -31,16 +44,19 @@ let NERDTreeShowHidden=1
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_working_path_mode = 0 " set local working directory to pwd
 let g:ctrlp_max_files = 0
-let g:ctrlp_user_command = 'ag -l --nocolor -g "" %s'
+if executable('ag')
+	let g:ctrlp_user_command = 'ag -l --nocolor -g "" %s'
+endif
 
 let g:airline#extensions#tabline#enabled = 1
-
-let g:bufferline_echo = 0 " don't show in command bar
+let g:airline_symbols_ascii = 1
 
 let g:indentLine_leadingSpaceEnabled = 1
 let g:indentLine_leadingSpaceChar = '·'
 
+" https://github.com/Yggdroot/indentLine
 let g:markdown_syntax_conceal=0
+let g:vim_json_conceal=0
 
 let g:gundo_prefer_python3 = 1
 
@@ -54,70 +70,48 @@ let g:ycm_always_populate_location_list = 1
 "let g:ycm_key_list_select_completion = []
 "let g:ycm_key_list_previous_completion = []
 
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<C-j>"
-let g:UltiSnipsJumpBackwardTrigger="<C-k>"
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
-
-"let g:ale_completion_enabled = 1
-"let g:ale_c_parse_compile_commands = 1
-"let g:ale_linters = { 'c': [], 'cpp': [], 'rust': ['analyzer'], }
+set omnifunc=ale#completion#OmniFunc
+let g:ale_completion_enabled = 1
+let g:ale_c_parse_compile_commands = 1
+let g:ale_linters = { 'c': [], 'cpp': [], 'rust': ['analyzer'], }
 let g:ale_fixers = { '*': ['remove_trailing_lines', 'trim_whitespace'], 'rust': ['rustfmt'], }
 let g:ale_fix_on_save = 1
+let g:ale_virtualtext_cursor = 0
+"let g:ale_cursor_detail = 1
 
 "let g:rustfmt_autosave = 1
 "let g:rustfmt_fail_silently = 1
 
-set encoding=utf8
-set ffs=unix,dos
-set list
-set listchars=tab:>\ ,trail:-,nbsp:+,eol:$
-
-filetype on
-
-set shiftwidth=4
-set tabstop=4
-
 autocmd FileType ruby setlocal expandtab shiftwidth=2 softtabstop=2
-autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+autocmd FileType nerdtree IndentLinesDisable
+autocmd BufNewFile,BufRead,BufFilePre *.md set filetype=markdown
 autocmd QuickFixCmdPost cscope copen
 autocmd User YcmLocationOpened map o <CR>:lcl<CR>
 
 syntax enable
 
-"execute pathogen#infect()
-"execute pathogen#helptags()
 call plug#begin('~/.vim/plugged')
 
+Plug 'altercation/vim-colors-solarized'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'mileszs/ack.vim'
+Plug 'dense-analysis/ale'
 Plug 'majutsushi/tagbar'
-Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-characterize'
-"Plug 'vim-syntastic/syntastic'
-Plug 'altercation/vim-colors-solarized'
+Plug 'easymotion/vim-easymotion'
+Plug 'Yggdroot/indentLine'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'bling/vim-bufferline'
-Plug 'Yggdroot/indentLine'
 Plug 'sjl/gundo.vim'
-Plug 'mileszs/ack.vim'
 Plug 'airblade/vim-gitgutter'
-"Plug 'ervandew/supertab'
-"Plug 'ycm-core/YouCompleteMe'
-"Plug 'SirVer/ultisnips'
-"Plug 'honza/vim-snippets'
 Plug 'tomlion/vim-solidity'
-Plug 'dense-analysis/ale'
 
 call plug#end()
-
-autocmd FileType nerdtree IndentLinesDisable
 
 let g:solarized_termcolors=256
 let g:solarized_visibility = "low"
@@ -130,10 +124,10 @@ map <C-p> :CtrlP<CR>
 map <C-l> :CtrlPBuffer<CR>
 map <C-g> :TagbarToggle<CR>
 map <C-b> :YcmForceCompileAndDiagnostics<CR>:YcmDiags<CR>
-map <C-j> :bp<CR>
-map <C-k> :bn<CR>
 map <C-h> <C-^>
 map <C-c> :ccl<CR>:lcl<CR>
+map <C-k> <Plug>(ale_previous_wrap)
+map <C-j> <Plug>(ale_next_wrap)
 nmap <leader>l :ls<CR>:buffer<space>
 nmap <leader>a :A<CR>
 nmap <leader>g :Ack!<space>
@@ -144,4 +138,3 @@ nmap <leader>s :Gtags -s<space>
 nmap <leader>d :Gtags<space>
 nmap <leader>f :Gtags -r<space>
 nmap <leader>u :GundoToggle<CR>
-nmap <leader>v :lnext<CR>

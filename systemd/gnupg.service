@@ -1,0 +1,12 @@
+# ~/.config/systemd/user/
+
+[Unit]
+Description=Create GnuPG socket directories
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/gpgconf --kill all
+ExecStart=/usr/bin/gpgconf --create-socketdir
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,6 @@
+
+
+# This is not strictly necessary for non-tty pinentry programs.
+#export GPG_TTY="$(tty)"
+
+export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"

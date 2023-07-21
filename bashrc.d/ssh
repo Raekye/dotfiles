@@ -1,0 +1,7 @@
+
+
+function ssh {
+	gpg-connect-agent updatestartuptty /bye && /usr/bin/env ssh "$@"
+}
+
+export -f ssh
