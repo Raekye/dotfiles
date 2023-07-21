@@ -10,3 +10,5 @@
 	showSignature = true
 [commit]
 	gpgSign = false
+[format]
+	pretty = fuller

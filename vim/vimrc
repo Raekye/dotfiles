@@ -1,22 +1,38 @@
 
 set exrc
 set secure
+
 set number
 set ruler
-set showcmd
-set smartindent " less strict than cindent
-set autoindent
-set ignorecase
-set smartcase
-set wildmenu " command line completion
+set scrolloff=4
+
+set backspace=indent,eol,start
+set autoread " update if changed externally and not modified locally
 set nobackup " make backup before overwriting, and leave it around
 set noswapfile " use swapfile for buffer
-set autoread " update if changed externally and not modified locally
-set incsearch " ctrl-g and ctrl-t to move to next and previous match
+
+set encoding=utf-8
+set ffs=unix,dos
+set list
+set listchars=eol:$,tab:>\ ,multispace:-,lead:-,leadmultispace:\|---,trail:-,extends:>,precedes:<,conceal:!,nbsp:!
+set conceallevel=0
+
+set shiftwidth=4
+set tabstop=4
+
+set smartindent " less strict than cindent
+set autoindent
 set breakindent
-set scrolloff=4
+
+set ignorecase
+set smartcase
+set incsearch " ctrl-g and ctrl-t to move to next and previous match
+
+set showcmd
 set laststatus=2 " always show status line for last window
-set backspace=indent,eol,start
+
+set wildmenu " command line completion
+
 set ssop-=options
 set ssop-=curdir
 set ssop+=sesdir
@@ -24,22 +40,16 @@ set cscopequickfix=s-,g-,c-
 set cscopetag
 set hidden
 
-set encoding=utf8
-set ffs=unix,dos
-set list
-set listchars=tab:>\ ,trail:-,nbsp:+,eol:$
-
-set shiftwidth=4
-set tabstop=4
-
-set conceallevel=0
-
 filetype on
+syntax enable
 
-let mapleader=","
+let mapleader = ","
 
-let NERDTreeShowLineNumbers=1
-let NERDTreeShowHidden=1
+let g:markdown_recommended_style = 0
+let g:python_recommended_style = 0
+
+let g:NERDTreeShowLineNumbers = 1
+let g:NERDTreeShowHidden = 1
 
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_working_path_mode = 0 " set local working directory to pwd
@@ -51,69 +61,65 @@ endif
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_symbols_ascii = 1
 
-let g:indentLine_leadingSpaceEnabled = 1
-let g:indentLine_leadingSpaceChar = '·'
-
 " https://github.com/Yggdroot/indentLine
-let g:markdown_syntax_conceal=0
-let g:vim_json_conceal=0
+"let g:indentLine_enabled = 0
+"let g:indentLine_leadingSpaceEnabled = 1
+"let g:indentLine_leadingSpaceChar = '+'
+"let g:markdown_syntax_conceal = 0
+"let g:vim_json_conceal = 0
 
-let g:gundo_prefer_python3 = 1
-
-let g:ack_mappings = { "o": "<CR>:ccl<CR>" }
 if executable('ag')
 	let g:ackprg = 'ag --vimgrep'
+else
+	let g:ackprg = 'grep --recursive --line-number'
 endif
-
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_always_populate_location_list = 1
-"let g:ycm_key_list_select_completion = []
-"let g:ycm_key_list_previous_completion = []
 
 set omnifunc=ale#completion#OmniFunc
 let g:ale_completion_enabled = 1
-let g:ale_c_parse_compile_commands = 1
 let g:ale_linters = { 'c': [], 'cpp': [], 'rust': ['analyzer'], }
-let g:ale_fixers = { '*': ['remove_trailing_lines', 'trim_whitespace'], 'rust': ['rustfmt'], }
+let g:ale_fixers = { '*': ['remove_trailing_lines', 'trim_whitespace'] }
 let g:ale_fix_on_save = 1
-let g:ale_virtualtext_cursor = 0
-"let g:ale_cursor_detail = 1
+"let g:ale_virtualtext_cursor = 0
 
-"let g:rustfmt_autosave = 1
+let g:gundo_prefer_python3 = 1
+
+let g:rustfmt_autosave = 1
 "let g:rustfmt_fail_silently = 1
 
-autocmd FileType ruby setlocal expandtab shiftwidth=2 softtabstop=2
-autocmd FileType nerdtree IndentLinesDisable
-autocmd BufNewFile,BufRead,BufFilePre *.md set filetype=markdown
-autocmd QuickFixCmdPost cscope copen
-autocmd User YcmLocationOpened map o <CR>:lcl<CR>
+"let g:ycm_autoclose_preview_window_after_completion = 1
+"let g:ycm_always_populate_location_list = 1
+"let g:ycm_key_list_select_completion = []
+"let g:ycm_key_list_previous_completion = []
 
-syntax enable
+"autocmd FileType nerdtree IndentLinesDisable
+"autocmd BufNewFile,BufRead,BufFilePre *.md set filetype=markdown
+"autocmd QuickFixCmdPost cscope copen
+"autocmd User YcmLocationOpened map o <CR>:lcl<CR>
 
 call plug#begin('~/.vim/plugged')
 
 Plug 'altercation/vim-colors-solarized'
-Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/nerdcommenter'
+Plug 'preservim/nerdtree'
+Plug 'preservim/nerdcommenter'
+Plug 'preservim/tagbar'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mileszs/ack.vim'
 Plug 'dense-analysis/ale'
-Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-characterize'
 Plug 'easymotion/vim-easymotion'
-Plug 'Yggdroot/indentLine'
+"Plug 'Yggdroot/indentLine'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'sjl/gundo.vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'tomlion/vim-solidity'
+Plug 'rust-lang/rust.vim'
 
 call plug#end()
 
-let g:solarized_termcolors=256
+let g:solarized_termcolors = 256
 let g:solarized_visibility = "low"
 colorscheme solarized
 set background=light
@@ -123,13 +129,11 @@ map <C-n> :NERDTreeToggle<CR>
 map <C-p> :CtrlP<CR>
 map <C-l> :CtrlPBuffer<CR>
 map <C-g> :TagbarToggle<CR>
-map <C-b> :YcmForceCompileAndDiagnostics<CR>:YcmDiags<CR>
 map <C-h> <C-^>
 map <C-c> :ccl<CR>:lcl<CR>
 map <C-k> <Plug>(ale_previous_wrap)
 map <C-j> <Plug>(ale_next_wrap)
 nmap <leader>l :ls<CR>:buffer<space>
-nmap <leader>a :A<CR>
 nmap <leader>g :Ack!<space>
 nmap <leader>w :Gtags -s <C-R>=expand("<cword>")<CR><CR>
 nmap <leader>e :Gtags <C-R>=expand("<cword>")<CR><CR>
