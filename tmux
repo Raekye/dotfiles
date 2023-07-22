@@ -1,9 +1,14 @@
-set -g mode-keys vi
-set -g status-keys vi
-set -g window-size smallest
-
+# Server Options
 set -s default-terminal "screen-256color"
 set -s escape-time 0
+
+# (Global) Session Options
+set -g history-limit 10000
+set -g status-keys vi
+
+# (Global) Window Options
+set -g mode-keys vi
+set -g window-size smallest
 
 unbind-key j
 unbind-key k

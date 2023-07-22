@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
-GIT_AUTHOR="$(git config user.name) <$(git config user.email)>"
+set -e
 
-git rebase --root --rebase-merges --exec "git commit --amend --no-edit --author '$GIT_AUTHOR'"
+#git show --no-patch --format='%ad' HEAD
+
+git rebase --root --rebase-merges --exec "git commit --amend --no-edit --author '$(git config user.name) <$(git config user.email)>'"
 
 git rebase --root --rebase-merges --committer-date-is-author-date

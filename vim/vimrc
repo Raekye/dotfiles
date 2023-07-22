@@ -6,6 +6,7 @@ set number
 set ruler
 set scrolloff=4
 
+set hidden
 set backspace=indent,eol,start
 set autoread " update if changed externally and not modified locally
 set nobackup " make backup before overwriting, and leave it around
@@ -14,7 +15,9 @@ set noswapfile " use swapfile for buffer
 set encoding=utf-8
 set ffs=unix,dos
 set list
-set listchars=eol:$,tab:>\ ,multispace:-,lead:-,trail:-,extends:>,precedes:<,conceal:!,nbsp:!
+set listchars=eol:$,tab:>\
+set listchars+=multispace:-,lead:-,trail:-
+set listchars+=extends:>,precedes:<,conceal:!,nbsp:%
 if v:version >= 900
 	set listchars+=leadmultispace:\|---
 else
@@ -36,18 +39,18 @@ set showcmd
 set laststatus=2 " always show status line for last window
 
 set wildmenu " command line completion
+set wildoptions=pum
 
 set ssop-=options
 set ssop-=curdir
 set ssop+=sesdir
 set cscopequickfix=s-,g-,c-
 set cscopetag
-set hidden
 
 filetype on
 syntax enable
 
-let mapleader = ","
+let g:mapleader = ","
 
 let g:markdown_recommended_style = 0
 let g:python_recommended_style = 0
@@ -97,19 +100,21 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-characterize'
 Plug 'easymotion/vim-easymotion'
-"Plug 'Yggdroot/indentLine'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'sjl/gundo.vim'
-Plug 'airblade/vim-gitgutter'
+" https://github.com/junegunn/vim-plug/issues/1005
+Plug 'airblade/vim-gitgutter', { 'branch': 'main' }
 Plug 'rust-lang/rust.vim'
 
 call plug#end()
 
 let g:solarized_termcolors = 256
 let g:solarized_visibility = "low"
-colorscheme solarized
 set background=light
+if isdirectory($HOME . '/.vim/plugged/vim-colors-solarized')
+	colorscheme solarized
+endif
 
 map Q <Nop>
 map <C-n> :NERDTreeToggle<CR>
