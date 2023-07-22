@@ -15,7 +15,7 @@ set noswapfile " use swapfile for buffer
 set encoding=utf-8
 set ffs=unix,dos
 set list
-set listchars=eol:$,tab:>\
+set listchars=tab:>\ ,eol:$ " tab before eol so trailing space doesn't get stripped
 set listchars+=multispace:-,lead:-,trail:-
 set listchars+=extends:>,precedes:<,conceal:!,nbsp:%
 if v:version >= 900
@@ -44,6 +44,7 @@ set wildoptions=pum
 set ssop-=options
 set ssop-=curdir
 set ssop+=sesdir
+
 set cscopequickfix=s-,g-,c-
 set cscopetag
 
@@ -116,21 +117,31 @@ if isdirectory($HOME . '/.vim/plugged/vim-colors-solarized')
 	colorscheme solarized
 endif
 
-map Q <Nop>
-map <C-n> :NERDTreeToggle<CR>
-map <C-p> :CtrlP<CR>
-map <C-l> :CtrlPBuffer<CR>
-map <C-g> :TagbarToggle<CR>
-map <C-h> <C-^>
-map <C-c> :ccl<CR>:lcl<CR>
-map <C-k> <Plug>(ale_previous_wrap)
-map <C-j> <Plug>(ale_next_wrap)
-nmap <leader>l :ls<CR>:buffer<space>
-nmap <leader>g :Ack!<space>
-nmap <leader>w :Gtags -s <C-R>=expand("<cword>")<CR><CR>
-nmap <leader>e :Gtags <C-R>=expand("<cword>")<CR><CR>
-nmap <leader>r :Gtags -r <C-R>=expand("<cword>")<CR><CR>
-nmap <leader>s :Gtags -s<space>
-nmap <leader>d :Gtags<space>
-nmap <leader>f :Gtags -r<space>
-nmap <leader>u :GundoToggle<CR>
+" non-recursive mapmode-nvo
+no Q <Nop>
+no <C-n> :NERDTreeToggle<CR>
+no <C-p> :CtrlP<CR>
+no <C-l> :CtrlPBuffer<CR>
+no <C-g> :TagbarToggle<CR>
+no <C-h> <C-^>
+no <C-c> :ccl<CR>:lcl<CR>
+no <C-k> <Plug>(ale_previous_wrap)
+no <C-j> <Plug>(ale_next_wrap)
+
+" non-recursive mapmode-n
+nn <leader>l :ls<CR>:buffer<space>
+nn <leader>g :Ack!<space>
+nn <leader>w :Gtags -s <C-R>=expand("<cword>")<CR><CR>
+nn <leader>e :Gtags <C-R>=expand("<cword>")<CR><CR>
+nn <leader>r :Gtags -r <C-R>=expand("<cword>")<CR><CR>
+nn <leader>s :Gtags -s<space>
+nn <leader>d :Gtags<space>
+nn <leader>f :Gtags -r<space>
+nn <leader>u :GundoToggle<CR>
+" make 'n' and 'N' search direction agnostic of '/' and '?'
+nn <expr> n 'Nn'[v:searchforward]
+nn <expr> N 'nN'[v:searchforward]
+
+" non-recursive mapmode-c
+cno <expr> <c-n> wildmenumode() ? "\<C-n>" : "\<down>"
+cno <expr> <c-p> wildmenumode() ? "\<C-p>" : "\<up>"
