@@ -1,0 +1,7 @@
+# ~/.local/share/applications/
+# ~/.config/autostart/
+
+[Desktop Entry]
+Type=Application
+Name=GNOME Terminal
+Exec=gnome-terminal --window --maximize

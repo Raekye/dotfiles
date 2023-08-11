@@ -39,7 +39,9 @@ set showcmd
 set laststatus=2 " always show status line for last window
 
 set wildmenu " command line completion
-set wildoptions=pum
+if v:version >= 900
+	set wildoptions=pum
+endif
 
 set ssop-=options
 set ssop-=curdir

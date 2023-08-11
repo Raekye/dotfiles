@@ -5,6 +5,7 @@ Description=Create GnuPG socket directories
 
 [Service]
 Type=oneshot
+RemainAfterExit=yes
 ExecStart=/usr/bin/gpgconf --kill all
 ExecStart=/usr/bin/gpgconf --create-socketdir
 
