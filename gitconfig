@@ -5,10 +5,10 @@
 [init]
 	defaultBranch = master
 [pull]
-	rebase = false
+	ff = only
+[format]
+	pretty = fuller # Show author, committer, and dates for both.
 [log]
 	showSignature = true
 [commit]
 	gpgSign = false
-[format]
-	pretty = fuller
