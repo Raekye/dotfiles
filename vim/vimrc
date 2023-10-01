@@ -80,9 +80,22 @@ else
 	let g:ackprg = 'grep --recursive --line-number'
 endif
 
-" The bang (exclamation mark) modifier/suffix passed to `fzf` launches it in fullscreen.
-command! -bang -nargs=* Rg call fzf#vim#grep('rg --column --line-number --no-heading --color always --smart-case --hidden -- ' . fzf#shellescape(<q-args>), fzf#vim#with_preview(), <bang>0)
-command! -bang -nargs=* Grep call fzf#vim#grep('grep --recursive --extended-regexp --line-number -- ' . fzf#shellescape(<q-args>), fzf#vim#with_preview(), <bang>0)
+function s:fzf_files(dir, bang)
+	if (a:bang == 0) && executable('rg')
+		if empty(a:dir)
+			call fzf#run(fzf#wrap(fzf#vim#with_preview({ 'source': 'rg --files' })))
+		else
+			call fzf#run(fzf#wrap(fzf#vim#with_preview({ 'source': 'rg --files -- ' . fzf#shellescape(a:dir) })))
+		endif
+	else
+		call fzf#vim#files(a:dir, fzf#vim#with_preview(), 0)
+	endif
+endfunction
+
+" The last argument to `fzf#vim#grep` controls launching `fzf` in fullscreen.
+command! -nargs=* Rg call fzf#vim#grep('rg --column --line-number --no-heading --color always --smart-case --hidden -- ' . fzf#shellescape(<q-args>), fzf#vim#with_preview(), 0)
+command! -nargs=* Grep call fzf#vim#grep('grep --recursive --extended-regexp --line-number -- ' . fzf#shellescape(<q-args>), fzf#vim#with_preview(), 0)
+command! -nargs=* -bang -complete=dir Files call s:fzf_files(<q-args>, <bang>0)
 
 set omnifunc=ale#completion#OmniFunc
 let g:ale_completion_enabled = 1

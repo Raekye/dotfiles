@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ -z "$1" ]; then
+if test -z "$1"; then
 	echo 'No input.'
 	exit 1
 fi
