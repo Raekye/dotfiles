@@ -1,6 +1,20 @@
+" === TODO
+" - cscope don't jump to first result when using quickfix.
+" - shortcut to close quickfix/location list?
+" - nerdtree split shenanigans...
+" - how to do git diff --staged with fugitive?
+" - open help in vertical split by default?
 
-set exrc
-set secure
+" === Tips/Reminders
+" - <C-y> to accept current match in popup wildmenu.
+"   No equivalent without popup menu (vim < 900)...
+
+" === Global Options
+" :help option-list
+" To lookup a specific option, surround it in single quotes (e.g. `:help 'some-option'`).
+
+set exrc " Load .vimrc in current directory (if it exists).
+set secure " Disallow ":autocmd", shell, and write commands in scripts loaded by setting `exrc`.
 
 set number
 set ruler
@@ -8,95 +22,97 @@ set scrolloff=4
 
 set hidden
 set backspace=indent,eol,start
-set autoread " update if changed externally and not modified locally
-set nobackup " make backup before overwriting, and leave it around
-set noswapfile " use swapfile for buffer
+set autoread
+set noswapfile
+
+" :help backup
+set writebackup " Should be default.
+set nobackup " Should be default.
 
 set encoding=utf-8
-set ffs=unix,dos
+set fileformats=unix,dos
+
+set conceallevel=0
 set list
-set listchars=tab:>\ ,eol:$ " tab before eol so trailing space doesn't get stripped
+set listchars=tab:>\ , " Add a comma here so that the space doesn't get trimmed by fixers/formatters.
+set listchars+=eol:$
 set listchars+=multispace:-,lead:-,trail:-
 set listchars+=extends:>,precedes:<,conceal:!,nbsp:%
 if v:version >= 900
 	set listchars+=leadmultispace:\|---
 else
 endif
-set conceallevel=0
 
-set shiftwidth=4
+" This setting is the last "common configuration" under :help tabstop.
 set tabstop=4
+set shiftwidth=4
+set noexpandtab
 
-set smartindent " less strict than cindent
 set autoindent
-set breakindent
+set smartindent " Less strict than cindent.
+set breakindent " Wrapped lines continue indented.
 
 set ignorecase
 set smartcase
-set incsearch " ctrl-g and ctrl-t to move to next and previous match
+" Use <C-g> and <C-t> to move to next and previous match.
+" :help c_CTRL-G
+" :help c_CTRL-T
+set incsearch
 
 set showcmd
-set laststatus=2 " always show status line for last window
+set laststatus=2 " Always show status line for last window.
 
-set wildmenu " command line completion
+set wildmenu " Command line completion.
 if v:version >= 900
-	set wildoptions=pum " display using popup menu
+	set wildoptions=pum " Display using popup menu.
 endif
 
-set ssop-=options
-set ssop-=curdir
-set ssop+=sesdir
+set pastetoggle=<F2>
 
-set cscopequickfix=s-,g-,c-
+set splitright
+
+set sessionoptions-=options
+set sessionoptions-=curdir
+set sessionoptions+=sesdir
+
+" === cscope
+" :help cscope
 set cscopetag
+set cscopequickfix=s-,g-,c- " Use quickfix for symbols, definitions, and callers.
+autocmd QuickFixCmdPost cscope copen
+" https://www.gnu.org/software/global/globaldoc_toc.html#Gtags_002dcscope
+if executable('gtags-cscope')
+	set cscopeprg=gtags-cscope
+	if filereadable('GTAGS')
+		cscope add GTAGS
+	endif
+endif
 
-filetype on
-syntax enable
-
+" === Configuration Variables
+" :help :map-special-chars
 let g:mapleader = ','
 
-" Documented under `:help filetype`
-let g:markdown_recommended_style = 0 " disable expandtab
-let g:python_recommended_style = 0 " disable expandtab
+" :help filetype
+let g:markdown_recommended_style = 0 " don't expandtab
+let g:python_recommended_style = 0 " don't expandtab
 
+" :help rust-settings
+let g:rust_recommended_style = 0 " don't expandtab
+let g:rustfmt_autosave = 1
+let g:rustfmt_fail_silently = 1 " don't populate location list
+
+" :help NERDTreeSettings
 let g:NERDTreeShowLineNumbers = 1
 let g:NERDTreeShowHidden = 1
+"let g:NERDTreeHijackNetrw = 1
 
+" :help NERDCommenterOptions
 let g:NERDCreateDefaultMappings = 0
 
-let g:ctrlp_show_hidden = 1
-let g:ctrlp_working_path_mode = 0 " set local working directory to pwd
-let g:ctrlp_max_files = 0
-if executable('ag')
-	let g:ctrlp_user_command = 'ag -l --nocolor -g "" %s'
-endif
-
-"let g:airline#extensions#tabline#enabled = 1
+" :help airline-configuration
 let g:airline_symbols_ascii = 1
 
-if executable('ag')
-	let g:ackprg = 'ag --vimgrep'
-else
-	let g:ackprg = 'grep --recursive --line-number'
-endif
-
-function s:fzf_files(dir, bang)
-	if (a:bang == 0) && executable('rg')
-		if empty(a:dir)
-			call fzf#run(fzf#wrap(fzf#vim#with_preview({ 'source': 'rg --files' })))
-		else
-			call fzf#run(fzf#wrap(fzf#vim#with_preview({ 'source': 'rg --files -- ' . fzf#shellescape(a:dir) })))
-		endif
-	else
-		call fzf#vim#files(a:dir, fzf#vim#with_preview(), 0)
-	endif
-endfunction
-
-" The last argument to `fzf#vim#grep` controls launching `fzf` in fullscreen.
-command! -nargs=* Rg call fzf#vim#grep('rg --column --line-number --no-heading --color always --smart-case --hidden -- ' . fzf#shellescape(<q-args>), fzf#vim#with_preview(), 0)
-command! -nargs=* Grep call fzf#vim#grep('grep --recursive --extended-regexp --line-number -- ' . fzf#shellescape(<q-args>), fzf#vim#with_preview(), 0)
-command! -nargs=* -bang -complete=dir Files call s:fzf_files(<q-args>, <bang>0)
-
+" :help ale-contents
 set omnifunc=ale#completion#OmniFunc
 let g:ale_completion_enabled = 1
 let g:ale_linters = { 'c': ['clangd'], 'cpp': ['clangd'], 'rust': ['analyzer'], }
@@ -104,11 +120,36 @@ let g:ale_fixers = { '*': ['remove_trailing_lines', 'trim_whitespace'] }
 let g:ale_fix_on_save = 1
 "let g:ale_virtualtext_cursor = 0
 
+" :help GundoConfig
 let g:gundo_prefer_python3 = 1
 
-let g:rustfmt_autosave = 1
-"let g:rustfmt_fail_silently = 1
+" === Old
+let g:ctrlp_show_hidden = 1
+let g:ctrlp_working_path_mode = 0 " set local working directory to pwd
+let g:ctrlp_max_files = 0
+if executable('ag')
+	let g:ctrlp_user_command = 'ag -l --nocolor -g "" %s'
+endif
 
+if executable('ag')
+	let g:ackprg = 'ag --vimgrep'
+else
+	let g:ackprg = 'grep --recursive --line-number'
+endif
+
+" === https://github.com/junegunn/fzf.vim
+function s:rg_files(dir, fullscreen)
+	if empty(a:dir)
+		call fzf#run(fzf#wrap(fzf#vim#with_preview({ 'source': 'rg --files' }), a:fullscreen))
+	else
+		call fzf#run(fzf#wrap(fzf#vim#with_preview({ 'source': 'rg --files -- ' . fzf#shellescape(a:dir) }), a:fullscreen))
+	endif
+endfunction
+
+command -bang -nargs=* -complete=tag Grep call fzf#vim#grep('grep --recursive --line-number --extended-regexp -- ' . fzf#shellescape(<q-args>), fzf#vim#with_preview(), <bang>0)
+command -bang -nargs=? -complete=dir RgFiles call s:rg_files(<q-args>, <bang>0)
+
+" === https://github.com/junegunn/vim-plug
 call plug#begin('~/.vim/plugged')
 
 Plug 'altercation/vim-colors-solarized'
@@ -130,6 +171,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails'
 " Enhance 'ga' output (shows info about character under the cursor).
 Plug 'tpope/vim-characterize'
+"Plug 'tpope/vim-vinegar'
 
 Plug 'easymotion/vim-easymotion'
 
@@ -144,8 +186,10 @@ Plug 'rust-lang/rust.vim'
 " Not really used...
 Plug 'sjl/gundo.vim'
 
+" Automatically executes `filetype plugin indent on` and `syntax on`.
 call plug#end()
 
+" :help solarized-options
 let g:solarized_termcolors = 256
 let g:solarized_visibility = "low"
 set background=light
@@ -153,46 +197,53 @@ if isdirectory($HOME . '/.vim/plugged/vim-colors-solarized')
 	colorscheme solarized
 endif
 
-" non-recursive mapmode-nvo
-no Q <Nop>
-no <C-n> :NERDTreeToggle<CR>
-no <C-p> :Files<CR>
-no <C-l> :Buffers<CR>
-no <C-g> :TagbarToggle<CR>
-no <C-h> <C-^>
-no <C-k> <Plug>(ale_previous_wrap)
-no <C-j> <Plug>(ale_next_wrap)
-no <C-c> <Plug>NERDCommenterToggle
-"no <Esc> :ccl<CR>:lcl<CR>
+" === Shortcuts (non-recursive)
+" :help index
 
-" non-recursive mapmode-n
-"nn <leader>l :ls<CR>:buffer<space>
+" mapmode-n (nmap -> nn[oremap])
+" :help mode-Ex
+nn Q <Nop>
+" :help ctrl-6
+nn <C-j> <C-^>
+" Stop highlighting search.
+nn <silent> <Esc> :nohlsearch<CR>
+
+nn <C-n> :NERDTreeToggle<CR>
+nn <C-l> :Buffers<CR>
+nn <C-g> :TagbarToggle<CR>
+nn <C-h> <Plug>NERDCommenterToggle
+
 if executable('rg')
+	nn <C-p> :RgFiles<CR>
 	nn <leader>g :Rg<space>
 else
+	nn <C-p> :Files<CR>
 	nn <leader>g :Grep<space>
 endif
 
-nn <leader>w <Plug>(ale_find_references)
+nn <leader>w :ALESymbolSearch <C-R>=expand("<cword>")<CR><CR>
 nn <leader>e <Plug>(ale_go_to_definition)
-nn <leader>r :ALESymbolSearch <C-R>=expand("<cword>")<CR><CR>
+nn <leader>r <Plug>(ale_find_references)
+nn [e <Plug>(ale_previous_wrap)
+nn ]e <Plug>(ale_previous_wrap)
 
-"nn <leader>w :Gtags -s <C-R>=expand("<cword>")<CR><CR>
-"nn <leader>e :Gtags <C-R>=expand("<cword>")<CR><CR>
-"nn <leader>r :Gtags -r <C-R>=expand("<cword>")<CR><CR>
-nn <leader>s :Gtags -s<space>
-nn <leader>d :Gtags<space>
-nn <leader>f :Gtags -r<space>
+" Find symbols, definitions, callers.
+nn <leader>s :cscope find s<space>
+nn <leader>d :cscope find g<space>
+nn <leader>f :cscope find c<space>
 
 nn <leader>u :GundoToggle<CR>
+
+" mapmode-x (xmap -> xn[oremap])
+xn <C-h> <Plug>NERDCommenterToggle
 
 " https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 " Make 'n' and 'N' search direction agnostic of '/' and '?'.
 nn <expr> n 'Nn'[v:searchforward]
 nn <expr> N 'nN'[v:searchforward]
 
-" non-recursive mapmode-c
+" mapmode-c (cmap -> cno[remap])
 " https://github.com/mhinz/vim-galore#saner-command-line-history
 " Make '<C-n>' and '<C-p>' autocomplete based on matching prefix.
-cno <expr> <c-n> wildmenumode() ? "\<C-n>" : "\<down>"
-cno <expr> <c-p> wildmenumode() ? "\<C-p>" : "\<up>"
+cno <expr> <C-n> wildmenumode() ? "\<C-n>" : "\<Down>"
+cno <expr> <C-p> wildmenumode() ? "\<C-p>" : "\<Up>"

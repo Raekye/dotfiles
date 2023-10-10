@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# Requires: ctags, cmake, clang, python-devel
-
 set -e
 
 cd "$(dirname "$0")"
