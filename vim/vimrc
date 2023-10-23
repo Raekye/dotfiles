@@ -71,6 +71,11 @@ set pastetoggle=<F2>
 
 set splitright
 
+set cursorline
+set cursorlineopt=number
+
+set noesckeys " https://stackoverflow.com/a/11940894
+
 set sessionoptions-=options
 set sessionoptions-=curdir
 set sessionoptions+=sesdir

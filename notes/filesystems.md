@@ -31,8 +31,9 @@ Source: [man page][mount-manual] (under "Filesystem-Independent Mount Options").
 - `lazyatime`: only update the in-memory times (access, modify, and change);
 	the on-disk timestamps are updated under specific conditions (e.g. upon `fsync`).
 
-The modify time indicates the last time the file contents were modified.
-The change time indicates the last time the file's metadata was changed.
+The modify time (mtime) indicates the last time the file's contents were modified.
+The change time (ctime) indicates the last time the file's metadata was changed.
+The access time (atime) indicates the last time the file was accessed.
 
 [parted-unit]: https://www.gnu.org/software/parted/manual/html_node/unit.html
 [parted-resizepart]: https://www.gnu.org/software/parted/manual/html_node/resizepart.html
