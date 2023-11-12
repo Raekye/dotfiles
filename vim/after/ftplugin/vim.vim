@@ -1,1 +1,1 @@
-nn <leader>e :vert help <C-R>=expand("<cword>")<CR><CR>
+nn <buffer> <localleader>e :vert help <C-R>=expand("<cword>")<CR><CR>

@@ -14,7 +14,7 @@
 " To lookup a specific option, surround it in single quotes (e.g. `:help 'some-option'`).
 
 set exrc " Load .vimrc in current directory (if it exists).
-set secure " Disallow ":autocmd", shell, and write commands in scripts loaded by setting `exrc`.
+set secure " Disallow `:autocmd`, shell, and write commands in scripts loaded by setting `exrc`.
 
 set number
 set ruler
@@ -76,9 +76,7 @@ set cursorlineopt=number
 
 set noesckeys " https://stackoverflow.com/a/11940894
 
-set sessionoptions-=options
-set sessionoptions-=curdir
-set sessionoptions+=sesdir
+set sessionoptions=buffers
 
 " === cscope
 " :help cscope
@@ -96,6 +94,7 @@ endif
 " === Configuration Variables
 " :help :map-special-chars
 let g:mapleader = ','
+let g:maplocalleader = ','
 
 " :help filetype
 let g:markdown_recommended_style = 0 " Don't expandtab.
@@ -105,6 +104,12 @@ let g:python_recommended_style = 0 " Don't expandtab.
 let g:rust_recommended_style = 0 " Don't expandtab.
 let g:rustfmt_autosave = 1
 let g:rustfmt_fail_silently = 1 " Don't populate location list.
+
+" :help vim-markdown-options
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_math = 1
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_auto_insert_bullets = 0
 
 " :help NERDTreeSettings
 let g:NERDTreeShowLineNumbers = 1
@@ -146,11 +151,13 @@ function s:rg_files(dir, fullscreen)
 	if empty(a:dir)
 		call fzf#run(fzf#wrap(fzf#vim#with_preview({ 'source': 'rg --files' }), a:fullscreen))
 	else
-		call fzf#run(fzf#wrap(fzf#vim#with_preview({ 'source': 'rg --files -- ' . fzf#shellescape(a:dir) }), a:fullscreen))
+		call fzf#run(fzf#wrap(fzf#vim#with_preview({ 'source': 'rg --files -- ' .. fzf#shellescape(a:dir) }), a:fullscreen))
 	endif
 endfunction
 
-command -bang -nargs=* -complete=tag Grep call fzf#vim#grep('grep --recursive --line-number --extended-regexp -- ' . fzf#shellescape(<q-args>), fzf#vim#with_preview(), <bang>0)
+" Don't escape `<q-args>` so that the dir (for `grep`/`rg`) can be specified.
+command -bang -nargs=* -complete=tag Grep call fzf#vim#grep('grep --recursive --line-number --extended-regexp -- ' .. <q-args>, fzf#vim#with_preview(), <bang>0)
+command -bang -nargs=* -complete=tag Rg call fzf#vim#grep('rg --column --line-number --no-heading --color=always --smart-case -- ' .. <q-args>, fzf#vim#with_preview(), <bang>0)
 command -bang -nargs=? -complete=dir RgFiles call s:rg_files(<q-args>, <bang>0)
 
 " === https://github.com/junegunn/vim-plug
@@ -175,6 +182,7 @@ Plug 'tpope/vim-rails'
 " Enhance 'ga' output (shows info about character under the cursor).
 Plug 'tpope/vim-characterize'
 "Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-obsession'
 
 Plug 'easymotion/vim-easymotion'
 
@@ -186,6 +194,8 @@ Plug 'airblade/vim-gitgutter', { 'branch': 'main' }
 " The `rust.vim`/`rustfmt.vim` distributed with vim on Fedora 38 is out of date and calls rustfmt incorrectly.
 Plug 'rust-lang/rust.vim'
 
+Plug 'https://github.com/preservim/vim-markdown'
+
 " Not really used...
 Plug 'sjl/gundo.vim'
 
@@ -196,7 +206,7 @@ call plug#end()
 let g:solarized_termcolors = 256
 let g:solarized_visibility = "low"
 set background=light
-if isdirectory($HOME . '/.vim/plugged/vim-colors-solarized')
+if isdirectory($HOME .. '/.vim/plugged/vim-colors-solarized')
 	colorscheme solarized
 endif
 
@@ -224,11 +234,13 @@ else
 	nn <leader>g :Grep<space>
 endif
 
+nn <leader>l :Lines<space>
+
 nn <leader>w :ALESymbolSearch <C-R>=expand("<cword>")<CR><CR>
 nn <leader>e <Plug>(ale_go_to_definition)
 nn <leader>r <Plug>(ale_find_references)
 nn [e <Plug>(ale_previous_wrap)
-nn ]e <Plug>(ale_previous_wrap)
+nn ]e <Plug>(ale_next_wrap)
 
 " Find symbols, definitions, callers.
 nn <leader>s :cscope find s<space>
@@ -236,6 +248,8 @@ nn <leader>d :cscope find g<space>
 nn <leader>f :cscope find c<space>
 
 nn <leader>u :GundoToggle<CR>
+
+nn <leader><F1> :vert help<space>
 
 " mapmode-x (xmap -> xn[oremap])
 xn <C-h> <Plug>NERDCommenterToggle
