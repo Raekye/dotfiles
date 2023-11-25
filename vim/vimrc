@@ -5,6 +5,9 @@
 " - how to do git diff --staged with fugitive?
 " - open help in vertical split by default?
 
+" === Notes
+" - The file-local mark `i` is used to store the last position every time before exiting insert mode.
+
 " === Tips/Reminders
 " - <C-y> to accept current match in popup wildmenu.
 "   No equivalent without popup menu (vim < 900)...
@@ -58,6 +61,7 @@ set smartcase
 " :help c_CTRL-G
 " :help c_CTRL-T
 set incsearch
+set hlsearch
 
 set showcmd
 set laststatus=2 " Always show status line for last window.
@@ -110,6 +114,7 @@ let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_math = 1
 let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_auto_insert_bullets = 0
+let g:vim_markdown_new_list_item_indent = 0
 
 " :help NERDTreeSettings
 let g:NERDTreeShowLineNumbers = 1
@@ -148,17 +153,13 @@ endif
 
 " === https://github.com/junegunn/fzf.vim
 function s:rg_files(dir, fullscreen)
-	if empty(a:dir)
-		call fzf#run(fzf#wrap(fzf#vim#with_preview({ 'source': 'rg --files' }), a:fullscreen))
-	else
-		call fzf#run(fzf#wrap(fzf#vim#with_preview({ 'source': 'rg --files -- ' .. fzf#shellescape(a:dir) }), a:fullscreen))
-	endif
+	call fzf#run(fzf#wrap(fzf#vim#with_preview({ 'source': 'rg --files -- ' .. a:dir }), a:fullscreen))
 endfunction
 
 " Don't escape `<q-args>` so that the dir (for `grep`/`rg`) can be specified.
-command -bang -nargs=* -complete=tag Grep call fzf#vim#grep('grep --recursive --line-number --extended-regexp -- ' .. <q-args>, fzf#vim#with_preview(), <bang>0)
-command -bang -nargs=* -complete=tag Rg call fzf#vim#grep('rg --column --line-number --no-heading --color=always --smart-case -- ' .. <q-args>, fzf#vim#with_preview(), <bang>0)
-command -bang -nargs=? -complete=dir RgFiles call s:rg_files(<q-args>, <bang>0)
+command -bang -nargs=* -complete=dir Grep call fzf#vim#grep('grep --recursive --line-number --extended-regexp -- ' .. <q-args>, fzf#vim#with_preview(), <bang>0)
+command -bang -nargs=* -complete=dir Rg call fzf#vim#grep('rg --column --line-number --no-heading --color=always --smart-case -- ' .. <q-args>, fzf#vim#with_preview(), <bang>0)
+command -bang -nargs=* -complete=dir RgFiles call s:rg_files(<q-args>, <bang>0)
 
 " === https://github.com/junegunn/vim-plug
 call plug#begin('~/.vim/plugged')
@@ -183,6 +184,7 @@ Plug 'tpope/vim-rails'
 Plug 'tpope/vim-characterize'
 "Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-sleuth'
 
 Plug 'easymotion/vim-easymotion'
 
@@ -218,13 +220,20 @@ endif
 nn Q <Nop>
 " :help ctrl-6
 nn <C-j> <C-^>
+
 " Stop highlighting search.
 nn <silent> <Esc> :nohlsearch<CR>
+
+" Close quickfix and location list windows.
+nn <silent> <C-c> :silent ccl<CR> :silent lcl<CR>
 
 nn <C-n> :NERDTreeToggle<CR>
 nn <C-l> :Buffers<CR>
 nn <C-g> :TagbarToggle<CR>
+
 nn <C-h> <Plug>NERDCommenterToggle
+" mapmode-x (xmap -> xn[oremap])
+xn <C-h> <Plug>NERDCommenterToggle
 
 if executable('rg')
 	nn <C-p> :RgFiles<CR>
@@ -249,10 +258,11 @@ nn <leader>f :cscope find c<space>
 
 nn <leader>u :GundoToggle<CR>
 
-nn <leader><F1> :vert help<space>
-
-" mapmode-x (xmap -> xn[oremap])
-xn <C-h> <Plug>NERDCommenterToggle
+" By default, `<F1>` immediately opens help.
+" Remap it to prompt for a topic.
+" Disable `<F1>` in `mapmode-c` so it can be mashed.
+nn <F1> :vert help<space>
+cno <F1> <Nop>
 
 " https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 " Make 'n' and 'N' search direction agnostic of '/' and '?'.
@@ -264,3 +274,12 @@ nn <expr> N 'nN'[v:searchforward]
 " Make '<C-n>' and '<C-p>' autocomplete based on matching prefix.
 cno <expr> <C-n> wildmenumode() ? "\<C-n>" : "\<Down>"
 cno <expr> <C-p> wildmenumode() ? "\<C-p>" : "\<Up>"
+
+" === Autocommands
+" :help autocmd-define
+" :help autocmd-events
+
+" Before exiting insert mode, create a mark and jump to it, to push it onto the jump list.
+" :help mark
+" :help jump-motions
+autocmd InsertLeavePre * normal! mi `i
