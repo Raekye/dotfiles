@@ -78,9 +78,11 @@ set splitright
 set cursorline
 set cursorlineopt=number
 
-set noesckeys " https://stackoverflow.com/a/11940894
-
 set sessionoptions=buffers
+
+if has('termguicolors')
+	set termguicolors
+endif
 
 " === cscope
 " :help cscope
@@ -99,6 +101,10 @@ endif
 " :help :map-special-chars
 let g:mapleader = ','
 let g:maplocalleader = ','
+
+" :help xterm-true-color
+"let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 " :help filetype
 let g:markdown_recommended_style = 0 " Don't expandtab.
@@ -125,6 +131,7 @@ let g:NERDTreeShowHidden = 1
 let g:NERDCreateDefaultMappings = 0
 
 " :help airline-configuration
+let g:airline_theme = 'base16'
 let g:airline_symbols_ascii = 1
 
 " :help ale-contents
@@ -164,7 +171,7 @@ command -bang -nargs=* -complete=dir RgFiles call s:rg_files(<q-args>, <bang>0)
 " === https://github.com/junegunn/vim-plug
 call plug#begin('~/.vim/plugged')
 
-Plug 'altercation/vim-colors-solarized'
+Plug 'lifepillar/vim-solarized8'
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -204,12 +211,13 @@ Plug 'sjl/gundo.vim'
 " Automatically executes `filetype plugin indent on` and `syntax on`.
 call plug#end()
 
-" :help solarized-options
-let g:solarized_termcolors = 256
-let g:solarized_visibility = "low"
 set background=light
-if isdirectory($HOME .. '/.vim/plugged/vim-colors-solarized')
-	colorscheme solarized
+
+" :help solarized8-options
+let g:solarized_visibility = "low"
+if isdirectory($HOME .. '/.vim/plugged/vim-solarized8')
+	" The "high" here refers to `g:solarized_contrast`.
+	colorscheme solarized8_high
 endif
 
 " === Shortcuts (non-recursive)
@@ -222,10 +230,10 @@ nn Q <Nop>
 nn <C-j> <C-^>
 
 " Stop highlighting search.
-nn <silent> <Esc> :nohlsearch<CR>
+nn <silent> <C-[> :nohlsearch<CR>
 
 " Close quickfix and location list windows.
-nn <silent> <C-c> :silent ccl<CR> :silent lcl<CR>
+nn <silent> <C-c> :ccl<CR>:lcl<CR>
 
 nn <C-n> :NERDTreeToggle<CR>
 nn <C-l> :Buffers<CR>
@@ -282,4 +290,4 @@ cno <expr> <C-p> wildmenumode() ? "\<C-p>" : "\<Up>"
 " Before exiting insert mode, create a mark and jump to it, to push it onto the jump list.
 " :help mark
 " :help jump-motions
-autocmd InsertLeavePre * normal! mi `i
+autocmd InsertLeave * normal! mi `i
