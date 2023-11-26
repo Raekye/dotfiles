@@ -1,0 +1,12 @@
+## Terminal Colors
+- [Detecting true color support](https://github.com/termstandard/colors).
+- [Overriding terminfo/termcap in vim](https://vimhelp.org/term.txt.html#xterm-true-color).
+- [Detecting modern terminal features in vim](https://sw.kovidgoyal.net/kitty/faq/#using-a-color-theme-with-a-background-color-does-not-work-well-in-vim).
+	- [Breakage in vim 9](https://github.com/vim/vim/issues/11729).
+		- [More info](https://github.com/vim/vim/issues/11716#issuecomment-1357741683).
+- [Troubleshooting vim truecolor support](https://github.com/lifepillar/vim-solarized8#troubleshooting).
+	- [Add truecolor support to tmux's `terminal-overrides` (tmux-specific) or `terminal-features` (terminfo standard)](https://github.com/lifepillar/vim-solarized8/issues/4#issuecomment-985416964).
+		- [tmux's FAQ on `terminal-overrides` vs. `terminal-features`](https://github.com/tmux/tmux/wiki/FAQ#how-do-i-use-rgb-colour).
+	- [Set tmux's `default-terminal` to `tmux-256color`](https://github.com/lifepillar/vim-solarized8/issues/109#issuecomment-1675166602).
+		- [tmux's FAQ on `screen-256color` and `tmux-256color`](https://github.com/tmux/tmux/wiki/FAQ#how-do-i-use-a-256-colour-terminal).
+		- [Don't set tmux's `default-terminal` to `xterm-256color`](https://superuser.com/a/424094).

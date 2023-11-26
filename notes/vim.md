@@ -27,3 +27,18 @@ Source: [readme][vim-gitgutter-readme].
 [vim-diff]: https://vimhelp.org/diff.txt.html
 
 [vim-gitgutter-readme]: https://github.com/airblade/vim-gitgutter#getting-started
+
+### Mapping the Escape Key
+- Vim's termresponse feature and how it interacts with mapping the escape key:
+	- https://stackoverflow.com/a/15015109
+	- https://vi.stackexchange.com/a/2620
+	- https://vi.stackexchange.com/a/19073
+
+For me, mapping `<Esc>` seems fine in vim 9.
+However, on vim 8, I need to set `noesckeys`.
+
+#### Terminal Escape Codes
+- https://notes.burke.libbey.me/ansi-escape-codes/
+- https://www.man7.org/linux/man-pages/man4/console_codes.4.html
+- https://espterm.github.io/docs/VT100%20escape%20codes.html
+- https://www.xfree86.org/current/ctlseqs.html
