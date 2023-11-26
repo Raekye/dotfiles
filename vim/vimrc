@@ -84,6 +84,11 @@ if has('termguicolors')
 	set termguicolors
 endif
 
+if v:version < 900
+	" TODO what happened...
+	set noesckeys
+endif
+
 " === cscope
 " :help cscope
 set cscopetag
@@ -103,8 +108,8 @@ let g:mapleader = ','
 let g:maplocalleader = ','
 
 " :help xterm-true-color
-"let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-"let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 " :help filetype
 let g:markdown_recommended_style = 0 " Don't expandtab.
@@ -216,7 +221,7 @@ set background=light
 " :help solarized8-options
 let g:solarized_visibility = "low"
 if isdirectory($HOME .. '/.vim/plugged/vim-solarized8')
-	" The "high" here refers to `g:solarized_contrast`.
+	" The "high" here corresponds to `g:solarized_contrast`.
 	colorscheme solarized8_high
 endif
 
@@ -230,7 +235,7 @@ nn Q <Nop>
 nn <C-j> <C-^>
 
 " Stop highlighting search.
-nn <silent> <C-[> :nohlsearch<CR>
+nn <silent> <Esc> :nohlsearch<CR>
 
 " Close quickfix and location list windows.
 nn <silent> <C-c> :ccl<CR>:lcl<CR>
