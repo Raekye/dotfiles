@@ -225,27 +225,29 @@ if isdirectory($HOME .. '/.vim/plugged/vim-solarized8')
 	colorscheme solarized8_high
 endif
 
-" === Shortcuts (non-recursive)
+" === Shortcuts
 " :help index
+" :help :map-modes
+" :help :map-commands
+" - `:map` -> `:no[remap]`: `mapmode-nvo`.
+" - `:nmap` -> `:nn[oremap]`: `mapmode-n`.
+" - `:xmap` -> `:xn[oremap]`: `mapmode-x` (visual mode only; `mapmode-v` includes select mode).
+" - `:cmap` -> `:cn[oremap]`: `mapmode-c`.
 
-" mapmode-n (nmap -> nn[oremap])
 " :help mode-Ex
 nn Q <Nop>
-" :help ctrl-6
-nn <C-j> <C-^>
+" :help CTRL-6
+nn <C-k> <C-^>
 
-" Stop highlighting search.
-nn <silent> <Esc> :nohlsearch<CR>
+nn <C-l> <C-l>:nohlsearch<CR>
 
-" Close quickfix and location list windows.
 nn <silent> <C-c> :ccl<CR>:lcl<CR>
 
 nn <C-n> :NERDTreeToggle<CR>
-nn <C-l> :Buffers<CR>
+nn <C-j> :Buffers<CR>
 nn <C-g> :TagbarToggle<CR>
 
 nn <C-h> <Plug>NERDCommenterToggle
-" mapmode-x (xmap -> xn[oremap])
 xn <C-h> <Plug>NERDCommenterToggle
 
 if executable('rg')
@@ -273,8 +275,8 @@ nn <leader>u :GundoToggle<CR>
 
 " By default, `<F1>` immediately opens help.
 " Remap it to prompt for a topic.
-" Disable `<F1>` in `mapmode-c` so it can be mashed.
 nn <F1> :vert help<space>
+" Disable `<F1>` in `mapmode-c` so it can be mashed.
 cno <F1> <Nop>
 
 " https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
@@ -282,7 +284,6 @@ cno <F1> <Nop>
 nn <expr> n 'Nn'[v:searchforward]
 nn <expr> N 'nN'[v:searchforward]
 
-" mapmode-c (cmap -> cno[remap])
 " https://github.com/mhinz/vim-galore#saner-command-line-history
 " Make '<C-n>' and '<C-p>' autocomplete based on matching prefix.
 cno <expr> <C-n> wildmenumode() ? "\<C-n>" : "\<Down>"
