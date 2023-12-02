@@ -237,14 +237,14 @@ endif
 " :help mode-Ex
 nn Q <Nop>
 " :help CTRL-6
-nn <C-k> <C-^>
+nn <C-j> <C-^>
 
 nn <C-l> <C-l>:nohlsearch<CR>
 
-nn <silent> <C-c> :ccl<CR>:lcl<CR>
+nn <silent> <C-c> :cclose<CR>:lclose<CR>:helpclose<CR>:NERDTreeClose<CR>
 
 nn <C-n> :NERDTreeToggle<CR>
-nn <C-j> :Buffers<CR>
+nn <C-k> :Buffers<CR>
 nn <C-g> :TagbarToggle<CR>
 
 nn <C-h> <Plug>NERDCommenterToggle
@@ -270,6 +270,8 @@ nn ]e <Plug>(ale_next_wrap)
 nn <leader>s :cscope find s<space>
 nn <leader>d :cscope find g<space>
 nn <leader>f :cscope find c<space>
+
+nn <leader>v :vert Git<CR>
 
 nn <leader>u :GundoToggle<CR>
 

@@ -3,9 +3,44 @@
 
 	Additionally, to show information about a package: `dnf info <package>` or `apt-cache show <package>`.
 
+### `dnf`
+- [Upgrading Fedora Using DNF System Plugin](https://docs.fedoraproject.org/en-US/quick-docs/upgrading-fedora-offline/).
+	- [Fedora PGP Keys](https://fedoraproject.org/security).
+
+	```
+	dnf upgrade --refresh
+	reboot now
+	dnf install dnf-plugin-system-upgrade
+	dnf system-upgrade download --releasever=39
+	dnf autoremove
+	```
+
+## Firefox
+### Firefox Auto-Downloads Files
+- [Since release 98.0](https://www.mozilla.org/en-US/firefox/98.0/releasenotes/).
+	- [Longer explanation](https://support.mozilla.org/en-US/kb/manage-downloads-preferences-using-downloads-menu).
+- [Please stop doing this](https://connect.mozilla.org/t5/ideas/choose-to-always-ask-to-download-files-instead-of-auto/idi-p/958).
+
+In "Settings" -> "General" (`about:preferences`), under "Files and Applications", you may have "Always ask you where to save files" checked.
+However, Firefox may still download files, such as PDFs, without asking.
+
+My understanding of the problem is that Firefox thinks "opening files" and "saving files" are completely separate.
+
+Just a bit further below, under "Applications", Firefox can have custom "Action"s for different "Content Type"s;
+for example, (I believe) by default, PDFs are set to "Open in Firefox".
+When you "download" a PDF, Firefox thinks it should "just" "open" it, so it auto-downloads the file, and opens it.
+
+If you change the action to "Save File", Firefox will actually ask you where to save it
+(assuming you have checked "Always ask you where to save files" as mentioned above).
+
+Note that the setting "What should Firefox do with other files?" (where the options are "Save files" and "Ask whether to open or save files")
+is orthogonal to "Always ask you where to save files";
+"Always ask you where to save files" applies _after_ Firefox has decided that it is only saving the file.
+
 ## Other References
 - [GNU `make` automatic variables](https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html).
 - [Trailing slashes on GNU programs](https://www.gnu.org/software/coreutils/manual/html_node/Trailing-slashes.html).
+- [Bash quoting](https://www.gnu.org/software/bash/manual/html_node/Quoting.html).
 
 ## Specifications
 - [freedesktop.org](https://www.freedesktop.org/wiki/Specifications/).
