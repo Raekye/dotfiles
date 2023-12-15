@@ -37,6 +37,42 @@ Note that the setting "What should Firefox do with other files?" (where the opti
 is orthogonal to "Always ask you where to save files";
 "Always ask you where to save files" applies _after_ Firefox has decided that it is only saving the file.
 
+Also, as part of release 98.0, such auto-downloaded files will no-longer be put in a proper temp folder.
+
+> Any files you download will be immediately saved on your disk.
+> Depending on the current configuration, they’ll be saved in your preferred download folder, or you’ll be asked to select a location for each download.
+> Windows and Linux users will find their downloaded files in the destination folder.
+> They’ll no longer be put in the Temp folder.
+> - https://www.mozilla.org/en-US/firefox/98.0/releasenotes/
+
+To make Firefox download such files into a proper temp folder again, the `about:config` setting `browser.download.start_downloads_in_tmp_dir` can be used
+([beta 102.0 release notes](https://www.mozilla.org/en-US/firefox/102.0beta/releasenotes/)).
+
+## `systemd`
+### Units
+- [Load paths](https://www.freedesktop.org/software/systemd/man/systemd.unit.html#Unit%20File%20Load%20Path).
+- [Specifiers (special variables)](https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html#Specifiers).
+- [Properties and their inverses](https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html#Mapping%20of%20unit%20properties%20to%20their%20inverses).
+
+### Services
+- [`Type=`](https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html#Type=).
+- [`ExecStart=`](https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html#ExecStart=).
+- [`Restart=` (including table of restarting conditions)](https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html#Restart=).
+- [Command line parsing, and variable/specifier expansions](https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html#Command%20lines).
+
+### Exec
+- [User/Group](https://www.freedesktop.org/software/systemd/man/latest/systemd.exec.html#User/Group%20Identity).
+- [Logging](https://www.freedesktop.org/software/systemd/man/latest/systemd.exec.html#Logging%20and%20Standard%20Input/Output).
+- [Setting environment variables](https://www.freedesktop.org/software/systemd/man/latest/systemd.exec.html#Environment).
+- [Environment variables set or propagated by the service manager](https://www.freedesktop.org/software/systemd/man/latest/systemd.exec.html#Environment%20Variables%20Set%20or%20Propagated%20by%20the%20Service%20Manager).
+- [`WorkingDirectory=`](https://www.freedesktop.org/software/systemd/man/latest/systemd.exec.html#WorkingDirectory=).
+
+### Other
+- [Targets](https://www.freedesktop.org/software/systemd/man/latest/systemd.target.html).
+- [Special units](https://www.freedesktop.org/software/systemd/man/latest/systemd.special.html).
+- [Syntax](https://www.freedesktop.org/software/systemd/man/latest/systemd.syntax.html).
+
+
 ## Other References
 - [GNU `make` automatic variables](https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html).
 - [Trailing slashes on GNU programs](https://www.gnu.org/software/coreutils/manual/html_node/Trailing-slashes.html).
@@ -44,7 +80,6 @@ is orthogonal to "Always ask you where to save files";
 
 ## Specifications
 - [freedesktop.org](https://www.freedesktop.org/wiki/Specifications/).
-- [`systemd` unit load paths](https://www.freedesktop.org/software/systemd/man/systemd.unit.html#Unit%20File%20Load%20Path).
 - [`systemd` file hierarchy](https://www.freedesktop.org/software/systemd/man/file-hierarchy.html).
 - [Filesystem Hierarchy Standard](https://refspecs.linuxfoundation.org/fhs.shtml).
 
