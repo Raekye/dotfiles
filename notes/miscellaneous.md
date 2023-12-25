@@ -1,5 +1,5 @@
 ## Package Managers
-- [DNF and APT command equivalents][dnf-vs-apt-commands].
+- [DNF and APT command equivalents](https://docs.fedoraproject.org/en-US/quick-docs/dnf-vs-apt/).
 
 	Additionally, to show information about a package: `dnf info <package>` or `apt-cache show <package>`.
 
@@ -72,7 +72,6 @@ To make Firefox download such files into a proper temp folder again, the `about:
 - [Special units](https://www.freedesktop.org/software/systemd/man/latest/systemd.special.html).
 - [Syntax](https://www.freedesktop.org/software/systemd/man/latest/systemd.syntax.html).
 
-
 ## Other References
 - [GNU `make` automatic variables](https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html).
 - [Trailing slashes on GNU programs](https://www.gnu.org/software/coreutils/manual/html_node/Trailing-slashes.html).
@@ -81,6 +80,4 @@ To make Firefox download such files into a proper temp folder again, the `about:
 ## Specifications
 - [freedesktop.org](https://www.freedesktop.org/wiki/Specifications/).
 - [`systemd` file hierarchy](https://www.freedesktop.org/software/systemd/man/file-hierarchy.html).
-- [Filesystem Hierarchy Standard](https://refspecs.linuxfoundation.org/fhs.shtml).
-
-[dnf-vs-apt-commands]: https://docs.fedoraproject.org/en-US/quick-docs/dnf-vs-apt/
+- [Filesystem Hierarchy Standard](https://refspecs.linuxfoundation.org/fhs.shtml) ([Wikipedia](https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard)).

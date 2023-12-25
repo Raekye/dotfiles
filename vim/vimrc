@@ -239,7 +239,7 @@ nn Q <Nop>
 " :help CTRL-6
 nn <C-j> <C-^>
 
-nn <C-l> <C-l>:nohlsearch<CR>
+nn <C-l> :nohlsearch<CR><C-l>
 
 nn <silent> <C-c> :cclose<CR>:lclose<CR>:helpclose<CR>:NERDTreeClose<CR>
 
