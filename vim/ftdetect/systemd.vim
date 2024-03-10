@@ -1,0 +1,3 @@
+" === Hmmm...
+au BufRead,BufNewFile *.container set ft=systemd
+au BufRead,BufNewFile *.pod set ft=systemd

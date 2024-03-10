@@ -71,6 +71,7 @@ To make Firefox download such files into a proper temp folder again, the `about:
 - [Targets](https://www.freedesktop.org/software/systemd/man/latest/systemd.target.html).
 - [Special units](https://www.freedesktop.org/software/systemd/man/latest/systemd.special.html).
 - [Syntax](https://www.freedesktop.org/software/systemd/man/latest/systemd.syntax.html).
+- [Running Services After the Network is Up](https://systemd.io/NETWORK_ONLINE/).
 
 ## Other References
 - [GNU `make` automatic variables](https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html).
