@@ -49,6 +49,19 @@ To make Firefox download such files into a proper temp folder again, the `about:
 ([beta 102.0 release notes](https://www.mozilla.org/en-US/firefox/102.0beta/releasenotes/)).
 
 ## `systemd`
+```
+# Logs since the most recent boot (i.e. the current one).
+journalctl --boot=0
+journalctl --boot=-0
+journalctl -b 0
+
+# Logs since the previous boot.
+journalctl --kernel --boot=-1
+
+# Logs since the first recorded boot.
+journalctl --kernel --boot=1
+```
+
 ### Units
 - [Load paths](https://www.freedesktop.org/software/systemd/man/systemd.unit.html#Unit%20File%20Load%20Path).
 - [Specifiers (special variables)](https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html#Specifiers).
