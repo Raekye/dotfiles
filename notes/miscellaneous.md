@@ -11,7 +11,8 @@
 	dnf upgrade --refresh
 	reboot now
 	dnf install dnf-plugin-system-upgrade
-	dnf system-upgrade download --releasever=39
+	dnf system-upgrade download --releasever=40
+	dnf system-upgrade reboot
 	dnf autoremove
 	```
 
@@ -56,10 +57,10 @@ journalctl --boot=-0
 journalctl -b 0
 
 # Logs since the previous boot.
-journalctl --kernel --boot=-1
+journalctl --boot=-1
 
 # Logs since the first recorded boot.
-journalctl --kernel --boot=1
+journalctl --boot=1
 ```
 
 ### Units
@@ -95,3 +96,6 @@ journalctl --kernel --boot=1
 - [freedesktop.org](https://www.freedesktop.org/wiki/Specifications/).
 - [`systemd` file hierarchy](https://www.freedesktop.org/software/systemd/man/file-hierarchy.html).
 - [Filesystem Hierarchy Standard](https://refspecs.linuxfoundation.org/fhs.shtml) ([Wikipedia](https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard)).
+
+## Make
+- [Automatic Variables](https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html)

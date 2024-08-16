@@ -197,6 +197,7 @@ Plug 'tpope/vim-characterize'
 "Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-commentary'
 
 Plug 'easymotion/vim-easymotion'
 
@@ -247,8 +248,10 @@ nn <C-n> :NERDTreeToggle<CR>
 nn <C-k> :Buffers<CR>
 nn <C-g> :TagbarToggle<CR>
 
-nn <C-h> <Plug>NERDCommenterToggle
-xn <C-h> <Plug>NERDCommenterToggle
+"nn <C-h> <Plug>NERDCommenterToggle
+"xn <C-h> <Plug>NERDCommenterToggle
+nn <C-h> <Plug>CommentaryLine
+xn <C-h> <Plug>Commentary
 
 if executable('rg')
 	nn <C-p> :RgFiles<CR>

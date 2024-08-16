@@ -4,6 +4,11 @@ set -e
 
 cd "$(dirname "$0")"
 
+if [[ "$(realpath "$HOME"/.vim)" != "$(pwd)" ]]; then
+	echo "'~/.vim' needs to be symlinked to '$(pwd)'!"
+	exit 1
+fi
+
 mkdir autoload
 
 curl --fail --location --output autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
