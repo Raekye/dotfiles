@@ -1,0 +1,12 @@
+
+
+# https://www.gnu.org/software/bash/manual/html_node/Searching.html
+
+# https://www.gnu.org/software/bash/manual/html_node/Bash-Variables.html#index-HISTCONTROL
+HISTCONTROL=ignoredups:erasedups
+
+# https://www.gnu.org/software/bash/manual/html_node/Bash-Variables.html#index-HISTFILESIZE
+HISTSIZE=$((128 * 1024))
+
+# https://www.gnu.org/software/bash/manual/html_node/Bash-Variables.html#index-PROMPT_005fCOMMAND
+PROMPT_COMMAND='history -a'
