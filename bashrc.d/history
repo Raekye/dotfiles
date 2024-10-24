@@ -9,4 +9,5 @@ HISTCONTROL=ignoredups:erasedups
 HISTSIZE=$((128 * 1024))
 
 # https://www.gnu.org/software/bash/manual/html_node/Bash-Variables.html#index-PROMPT_005fCOMMAND
-PROMPT_COMMAND='history -a'
+# https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html
+PROMPT_COMMAND="${PROMPT_COMMAND:+${PROMPT_COMMAND:?'${PROMPT_COMMAND} should exist!'};}history -a"
