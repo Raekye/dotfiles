@@ -1,15 +1,36 @@
 ## `systemd`
-```
+```bash
 # Logs since the most recent boot (i.e. the current one).
 journalctl --boot=0
 journalctl --boot=-0
 journalctl -b 0
+journalctl -b
 
 # Logs since the previous boot.
 journalctl --boot=-1
 
 # Logs since the first recorded boot.
 journalctl --boot=1
+
+# Show only kernel messages (implies `-b`).
+journalctl --dmesg
+journalctl -k
+
+# Show most recent 10 entries.
+journalctl --lines=10
+journalctl -n 10
+journalctl --lines # The default value is 10 if no argument is given.
+
+# Show oldest 10 entries.
+journalctl --lines=+10
+
+# Show most recent entries, and continuously print new entries (implies `-n`).
+journalctl --follow
+journalctl -f
+
+# Jump to pager end (implies `-n1000` to avoid unbounded buffering).
+journalctl --pager-end
+journalctl -e
 ```
 
 ### Units

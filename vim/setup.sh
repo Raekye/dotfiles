@@ -4,8 +4,8 @@ set -e
 
 cd "$(dirname "$0")"
 
-if [[ "$(realpath "$HOME"/.vim)" != "$(pwd)" ]]; then
-	echo "'~/.vim' needs to be symlinked to '$(pwd)'!"
+if [[ "$(realpath "$HOME"/.vim)" != "$(realpath "$(pwd)")" ]]; then
+	echo "'~/.vim' needs to be symlinked to '$(realpath "$(pwd)")'!"
 	exit 1
 fi
 

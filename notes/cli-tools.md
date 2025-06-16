@@ -1,23 +1,14 @@
-## Package Managers
-- [DNF and APT command equivalents](https://docs.fedoraproject.org/en-US/quick-docs/dnf-vs-apt/).
+## Miscellaneous CLI Tools
+### GNU Coreutils
+- https://www.gnu.org/software/coreutils/manual/html_node/index.html
 
-	Additionally, to show information about a package: `dnf info <package>` or `apt-cache show <package>`.
-
-### `dnf`
-- [Upgrading Fedora Using DNF System Plugin](https://docs.fedoraproject.org/en-US/quick-docs/upgrading-fedora-offline/).
-	- [Fedora PGP Keys](https://fedoraproject.org/security).
-
-	```bash
-	dnf upgrade --refresh
-	reboot now
-	dnf install dnf-plugin-system-upgrade
-	dnf system-upgrade download --releasever=40
-	dnf system-upgrade reboot
-	dnf autoremove
-	```
+#### `head` and `tail`
+- https://www.gnu.org/software/coreutils/manual/html_node/head-invocation.html
+- https://www.gnu.org/software/coreutils/manual/html_node/tail-invocation.html
 
 ### `rsync`
-Flags I usually want: `--recursive --times --compress --partial --info=progress2`.
+Flags I usually want to "push" from the source to the destination: `--recursive --times --compress --partial --info=progress2`.
+Alternatively, to compare directories, I would use `--dry-run --verbose --recursive --checksum --itemize-changes --delete`, or `-nvrci --delete` for short.
 
 - `--archive`/`-a` equivalent to `-rlptgoD` (no `-A`, `-X`, `-U`, `-N`, `-H`).
 	- `--recursive`/`-r`: recurse into directories.
@@ -34,14 +25,20 @@ Flags I usually want: `--recursive --times --compress --partial --info=progress2
 	- `--atimes`/`-U`: preserve access (use) times.
 	- `--crtimes`/`-N`: preserve create times (newness).
 	- `--hard-links`/`-H`: preserve hard links.
-- `--delete`: delete extraneous files from dest dirs.
+- `--delete`: delete extraneous files from destination (i.e. make source and destination symmetrical, rather than default "source a subset of destination").
 - `--compress`/`-z` compress file data during the transfer.
 - `-P`: equivalent to `--partial --progress`.
 	- `--partial`: keep partially transferred files.
 	- `--progress`: print information showing the progress of the transfer.
+- `--checksum`/`-c`: skip files based on checksum, rather than modification time and size.
+	- Note that this affects the pre-transfer "does this file need to be sent?" check; any files `rsync` actually transfers are always checksummed.
+- `--dry-run`/`-n`: don't actually change anything.
+- `--itemize-changes`/`-i`: summarize changes to files; see notes on output format below.
 - `--verbose`/`-v`: increase verbosity.
 - `--info=help`: see all available flag names.
 - `--info=progress2`: total transfer progress.
+- `--remote-option=`/`-M`: apply an option only to the remote side (for a local transfer, the destination is the "remote").
+- `--debug=`: `help`, `filter`.
 
 ```bash
 # This would transfer all files matching the pattern `*.c` from the current directory to the directory `src` on the machine `foo`.
@@ -76,10 +73,47 @@ rsync -a /src/foo/ /dest/foo
 rsync foo/ bar/
 ```
 
-## Make
+#### `--itemize-changes` Output
+The output of `--itemize-changes` should be the same between a dry and real run,
+and equivalent to specifying `--out-format='%i %n%L'`.
+The specifier `%i` corresponds to 11 characters `YXcstpoguax`:
+
+- `Y`: type of the update:
+	- `<`: file is being **sent** to the remote.
+	- `>`: file is being **received** from the remote.
+	- `c`: a (local?) change (e.g. symlink) or creation (e.g. directory).
+	- `h`: item is a hard link.
+	- `.`: item is not being updated, but attributes may be modified.
+	- `*`: rest of the output contains a message (e.g. `deleting  `).
+- `X`: file-type: regular `f`ile, `d`irectory, sym`L`ink, `D`evice, or `S`pecial file (e.g. named socket).
+- `c`: checksum of a regular file (requires `--checksum`), or that a symlink, device, or special file has a changed value.
+- `s`: size of a regular file.
+- `t`: modification time (requires `--times`), or `T` meaning that the modification time will be updated to the transfer time.
+- `p`: permissions.
+- `o`: owner.
+- `g`: group.
+- `u|n|b`: "use"/access time (requires `--atimes`), "newness"/create time (requires `--crtimes`), or both.
+- `a`: ACL information.
+- `x`: extended attributes.
+
+For the attributes (everything following `YX`):
+
+- `.`: attribute unchanged.
+- `+`: newly created.
+- ` `: all attributes unchanged (all dots turn to spaces).
+- `?`: unknown change (remote rsync is old).
+
+#### Filtering
+TODO
+
+### Rclone
+- TODO
+
+### GNU Make
+- https://www.gnu.org/software/make/manual/html_node/index.html
 - [Automatic Variables](https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html)
 
-## Other References
+### Other References
 - [GNU `make` automatic variables](https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html).
 - [Trailing slashes on GNU programs](https://www.gnu.org/software/coreutils/manual/html_node/Trailing-slashes.html).
 - [Bash manual](https://www.gnu.org/software/bash/manual/).

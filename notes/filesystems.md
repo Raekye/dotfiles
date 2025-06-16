@@ -1,4 +1,4 @@
-## Filesystems and Storage Devices
+## Filesystems
 ### GNU Parted
 - Supports/uses both base 10 (e.g. "GB") and base 2 (e.g. "GiB") units; can be set with the `unit` command ([online manual][parted-unit]).
 - `resizepart` can be used to change the end position of a partition ([online manual][parted-resizepart]).

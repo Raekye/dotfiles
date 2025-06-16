@@ -42,3 +42,6 @@ However, on vim 8, I need to set `noesckeys`.
 - https://www.man7.org/linux/man-pages/man4/console_codes.4.html
 - https://espterm.github.io/docs/VT100%20escape%20codes.html
 - https://www.xfree86.org/current/ctlseqs.html
+
+### Other
+- https://vim.fandom.com/wiki/Unused_keys

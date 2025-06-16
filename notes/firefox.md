@@ -36,3 +36,6 @@ To make Firefox download such files into a proper temp folder again, the `about:
 	to disable "add application for mailto links".
 - [`signon.includeOtherSubdomainsInLookup`](https://support.mozilla.org/en-US/questions/1275168)
 	to disable autofill on a page from other subdomains of the site.
+
+### TODO
+- syncing toolbar layout?
