@@ -33,6 +33,133 @@ journalctl --pager-end
 journalctl -e
 ```
 
+### Basic Syntax
+- Configuration entries are written as `key=value`; <q>whitespace immediately before or after the "`=`" is ignored</q>.
+- <q>Empty lines and lines starting with "`#`" or "`;`" are ignored</q>.
+	In particular, comments cannot be started mid-line.
+- <q>Lines ending in a backslash are concatenated with the following line while reading and the backslash is replaced by a space character</q>.
+
+Sources:
+- `man systemd.syntax`: <https://www.freedesktop.org/software/systemd/man/latest/systemd.syntax.html>.
+
+#### Quoting
+- Only applies to settings where quoting is allowed.
+- Single and double quotes are equivalent.
+- <q>The opening quote may appear only at the beginning or after whitespace that is not quoted, and the closing quote must be followed by whitespace or the end of line</q>.
+- The enclosed text becomes part of the same item.
+- <q>Quotes themselves are removed</q>.
+- <q>C-style escapes are supported</q> (e.g. `\\n`); <q>unknown patterns will result in a warning</q>.
+
+Sources:
+- `man systemd.syntax` under "Quoting": <https://www.freedesktop.org/software/systemd/man/latest/systemd.syntax.html#Quoting>.
+
+#### Command Lines
+- Applies to `ExecStart=` and similar.
+- Does **not** implicitly invoke a shell; parsing is performed by systemd.
+- Executable can be a simple file name (without slashes) if it resides in `systemd-path search-binaries-default`.
+- <q>An argument solely consisting of "`;`" must be escaped, i.e. specified as "`\\;`"</q>.
+
+Sources:
+- `man systemd.service` under "Command Lines": <https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html#Command%20lines>.
+
+#### Parsing
+1. [Specifiers][specifiers] (e.g. `%h`) <q>are replaced when the unit files are loaded.
+2. <q>For settings where quoting is allowed</q>, quotes are processed and "unquoted" as in [quoting][#quoting].
+3. Where applicable, environment variables are expanded; in the case of command lines, for each item (i.e. argument):
+	- if the argument contains an identifier enclosed with curly braces, e.g. `${FOO}`,
+		then the variable is expanded into the same token; i.e. <q>always resulting in exactly a single argument</q>;
+	- if the argument solely consists of a dollar sign followed by an identifier, e.g. `$FOO`,
+		then the variable is expanded **and further split on whitespace**, <q>resulting in zero or more arguments</q>.
+		<q>For this type of expansion, quotes are respected when splitting into words, and afterwards removed</q>.
+
+In particular:
+- `$FOO` and `"$FOO"` are always equivalent, and do not ensure that the expansion of `$FOO` will be passed as a single argument.
+- If a specifier expands to contain quotes or environment variables, those will be processed as if the user wrote the expansion.
+
+See also:
+- [`specifier_printf`][specifier-printf]: the function that performs the specifier replacement.
+- [`replace_env_argv`][replace-env-argv]: the function that expands environment variables.
+
+#### Examples
+```systemd
+[Unit]
+Description=Example: backslash escapes
+
+[Service]
+Type=oneshot
+# By default, `echo` does not interpret backslash escapes; we will see "exactly what `echo` sees".
+ExecStart=echo . [\\n] . [\n] .
+
+[Install]
+WantedBy=default.target
+```
+
+Outputs:
+
+```
+. [\n] . [
+] .
+```
+
+---
+```systemd
+[Unit]
+Description=Example: environment variables
+
+[Service]
+Type=oneshot
+Environment="FOO='one two' three"
+ExecStart=echo == $$FOO
+ExecStart=printf [%%s]\\n $FOO
+ExecStart=echo == \"$$FOO\"
+ExecStart=printf [%%s]\\n "$FOO"
+ExecStart=echo == $${FOO}
+ExecStart=printf [%%s]\\n ${FOO}
+
+[Install]
+WantedBy=default.target
+```
+
+Outputs:
+
+```
+== $FOO
+[one two]
+[three]
+== "$FOO"
+[one two]
+[three]
+== ${FOO}
+['one two' three]
+```
+
+---
+```bash
+useradd --home-dir='/home/${USER}' someone
+```
+
+```systemd
+[Unit]
+Description=Example: backslash escapes
+
+[Service]
+Type=oneshot
+ExecStart=echo ${HOME}
+ExecStart=echo ${USER}
+ExecStart=echo %h
+
+[Install]
+WantedBy=default.target
+```
+
+Outputs:
+
+```
+/home/${USER}
+someone
+/home/someone
+```
+
 ### Units
 - [Load paths](https://www.freedesktop.org/software/systemd/man/systemd.unit.html#Unit%20File%20Load%20Path).
 - [Specifiers (special variables)](https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html#Specifiers).
@@ -56,3 +183,13 @@ journalctl -e
 - [Special units](https://www.freedesktop.org/software/systemd/man/latest/systemd.special.html).
 - [Syntax](https://www.freedesktop.org/software/systemd/man/latest/systemd.syntax.html).
 - [Running Services After the Network is Up](https://systemd.io/NETWORK_ONLINE/).
+
+### Other Quirks
+- Unless a process specifically logs to journald (i.e. not simply the default behaviour of piping a service's standard streams to journald's logging helper),
+	trailing whitespace is removed and empty lines are dropped (<https://www.freedesktop.org/software/systemd/man/latest/sd_journal_print.html>).
+- `SuccessExitStatus=` ([doc](https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html#SuccessExitStatus=))
+	does not affect the naming in `systemctl status` output (<https://github.com/systemd/systemd/issues/15757>).
+
+[specifiers]: https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html#Specifiers
+[specifier-printf]: https://github.com/systemd/systemd/blob/v257.9/src/shared/specifier.c#L37
+[replace-env-argv]: https://github.com/systemd/systemd/blob/v257.9/src/basic/env-util.c#L888

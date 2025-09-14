@@ -1,8 +1,11 @@
+# https://git-scm.com/docs/git-config#FILES
+# https://git-scm.com/docs/git-config#_configuration_file
+# https://git-scm.com/docs/git-config#_values
+# https://git-scm.com/docs/git-config#_variables
+
 [user]
 	name = Raekye
 	email = Raekye@users.noreply.github.com
-	#signingKey = 0x83BB9B72259502EF!
-	signingKey = 0xF613553A73B126F0!
 [init]
 	defaultBranch = master
 [pull]

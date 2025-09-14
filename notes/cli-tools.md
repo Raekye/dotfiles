@@ -8,6 +8,7 @@
 
 ### `rsync`
 Flags I usually want to "push" from the source to the destination: `--recursive --times --compress --partial --info=progress2`.
+
 Alternatively, to compare directories, I would use `--dry-run --verbose --recursive --checksum --itemize-changes --delete`, or `-nvrci --delete` for short.
 
 - `--archive`/`-a` equivalent to `-rlptgoD` (no `-A`, `-X`, `-U`, `-N`, `-H`).
@@ -110,11 +111,8 @@ TODO
 - TODO
 
 ### GNU Make
-- https://www.gnu.org/software/make/manual/html_node/index.html
-- [Automatic Variables](https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html)
+- Manual: <https://www.gnu.org/software/make/manual/>.
+- Automatic variables: <https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html>.
 
 ### Other References
-- [GNU `make` automatic variables](https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html).
-- [Trailing slashes on GNU programs](https://www.gnu.org/software/coreutils/manual/html_node/Trailing-slashes.html).
-- [Bash manual](https://www.gnu.org/software/bash/manual/).
-	- [Bash quoting](https://www.gnu.org/software/bash/manual/html_node/Quoting.html).
+- Behaviour of trailing slashes on some GNU programs: <https://www.gnu.org/software/coreutils/manual/html_node/Trailing-slashes.html>.

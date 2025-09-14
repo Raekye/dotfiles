@@ -6,5 +6,5 @@ if test -z "$1"; then
 fi
 
 for d in "$@"; do
-	find "$d" -type f -exec md5sum -b {} \; | sort | sha256sum
+	find "$d" -type f -exec md5sum --binary {} ';' | sort | sha256sum
 done

@@ -2,7 +2,7 @@
 
 # https://github.com/termstandard/colors
 
-awk 'BEGIN{
+exec awk 'BEGIN{
 	s="/\\/\\/\\/\\/\\"; s=s s s s s s s s;
 	for (colnum = 0; colnum<77; colnum++) {
 		r = 255-(colnum*255/76);

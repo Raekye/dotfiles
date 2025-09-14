@@ -32,10 +32,10 @@ To make Firefox download such files into a proper temp folder again, the `about:
 ([beta 102.0 release notes](https://www.mozilla.org/en-US/firefox/102.0beta/releasenotes/)).
 
 ### Other Settings
-- [`network.protocol-handler.external.mailto`](https://superuser.com/questions/363827/how-can-i-disable-add-application-for-mailto-links-bar-in-firefox)
-	to disable "add application for mailto links".
-- [`signon.includeOtherSubdomainsInLookup`](https://support.mozilla.org/en-US/questions/1275168)
-	to disable autofill on a page from other subdomains of the site.
+- `network.protocol-handler.external.mailto` to disable "add application for mailto links"
+	(<https://superuser.com/questions/363827/how-can-i-disable-add-application-for-mailto-links-bar-in-firefox>).
+- `signon.includeOtherSubdomainsInLookup` to disable autofill on a page from other subdomains of the site
+	(<https://support.mozilla.org/en-US/questions/1275168>).
 
 ### TODO
 - syncing toolbar layout?
