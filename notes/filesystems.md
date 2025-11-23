@@ -35,6 +35,16 @@ The modify time (mtime) indicates the last time the file's contents were modifie
 The change time (ctime) indicates the last time the file's metadata was changed.
 The access time (atime) indicates the last time the file was accessed.
 
+### RAID
+- <https://en.wikipedia.org/wiki/Standard_RAID_levels>
+- <https://en.wikipedia.org/wiki/Nested_RAID_levels>
+- RAID 0: splits ("stripes") data across $n$ drives (without fault tolerance or redundancy); theoretically, improving transfer speed by a factor up to $n$.
+- RAID 1: exact mirror of data across $n$ drives; theoretically, reads can be faster by a factor up to $n$, while writes are limited by the slowest drive.
+- RAID 5: striping with distributed parity (i.e. minimum 3 disks), allowing for recovery from a single drive failure.
+- RAID 6: striping with two distributed parity (i.e. minimum 4 disks), allowing for recovery from two simultaneous drive failures.
+- RAID 01 (RAID 0 under RAID 1): "mirror of stripes"; when one disk fails, the entire (inner) RAID 0 becomes useless; not typically used.
+- RAID 10 (RAID 1 under RAID 0): "stripe of mirrors"; when one disk fails, the (inner) RAID 1 still contains valid data.
+
 [parted-unit]: https://www.gnu.org/software/parted/manual/html_node/unit.html
 [parted-resizepart]: https://www.gnu.org/software/parted/manual/html_node/resizepart.html
 
