@@ -1,3 +1,3 @@
-" === Hmmm...
-au BufRead,BufNewFile *.container set ft=systemd
-au BufRead,BufNewFile *.pod set ft=systemd
+" :help ftdetect
+au BufRead,BufNewFile *.container setfiletype systemd
+au BufRead,BufNewFile *.pod setfiletype systemd

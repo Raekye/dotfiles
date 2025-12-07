@@ -45,9 +45,9 @@ if v:version >= 900
 else
 endif
 
-" This setting is the last "common configuration" under :help tabstop.
-set tabstop=4
-set shiftwidth=4
+set tabstop=4 " It's $currentYear.
+set shiftwidth=0 " Use `tabstop` value.
+set softtabstop=0 " (default) Disable.
 set noexpandtab
 
 set autoindent
@@ -143,10 +143,6 @@ let g:airline_symbols_ascii = 1
 " :help ale-contents
 set omnifunc=ale#completion#OmniFunc
 let g:ale_completion_enabled = 1
-let g:ale_linters = {
-\	'c': ['clangd'],
-\	'cpp': ['clangd'],
-\}
 let g:ale_fixers = {
 \	'*': ['remove_trailing_lines', 'trim_whitespace'],
 \}

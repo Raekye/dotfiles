@@ -1,17 +1,13 @@
 ## PGP Keys
 - [GnuPG](https://www.gnupg.org/): multiple keys.
-	- [asc](https://gnupg.org/signature_key.asc).
-	- [html](https://www.gnupg.org/signature_key.html).
-	- [pdf](https://gnupg.org/signature-key.pdf).
-	- [GnuPG - Integrity Check](https://www.gnupg.org/download/integrity_check.html).
+	- <https://gnupg.org/signature_key.asc>.
+	- <https://www.gnupg.org/signature_key.html>.
+	- <https://gnupg.org/signature-key.pdf>.
+	- <https://www.gnupg.org/download/integrity_check.html>.
 - [Fedora](https://fedoraproject.org/): multiple keys.
-	- [html](https://fedoraproject.org/security).
+	- <https://fedoraproject.org/security>.
+- [RPM Fusion](https://rpmfusion.org/): multiple keys.
+	- <https://rpmfusion.org/keys>.
 - [Tails](https://tails.net/): `A490 D0F4 D311 A415 3E2B  B7CA DBB8 02B2 58AC D84F`.
-	- [asc](https://tails.net/tails-signing.key).
-	- [html](https://tails.net/install/expert/index.en.html#verify-key).
-- [`go-ethereum`](https://geth.ethereum.org/) (`geth`) Linux Builder: `FDE5 A1A0 44FA 13D2 F7AD  A019 A61A 1356 9BA2 8146`.
-	- [asc](https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xA61A13569BA28146).
-	- [html](https://geth.ethereum.org/downloads#pgpsignatures).
-- Sigma Prime ([Lighthouse](https://github.com/sigp/lighthouse/) developers): `15E6 6D94 1F69 7E28 F493  81F4 2641 6DC3 F306 74B0`.
-	- [asc](https://keybase.io/sigp/pgp_keys.asc?fingerprint=15e66d941f697e28f49381f426416dc3f30674b0).
-	- [readme](https://github.com/sigp/lighthouse/#contact).
+	- <https://tails.net/tails-signing.key>.
+	- <https://tails.net/install/expert/index.en.html#verify-key>.

@@ -36,6 +36,7 @@ To make Firefox download such files into a proper temp folder again, the `about:
 	(<https://superuser.com/questions/363827/how-can-i-disable-add-application-for-mailto-links-bar-in-firefox>).
 - `signon.includeOtherSubdomainsInLookup` to disable autofill on a page from other subdomains of the site
 	(<https://support.mozilla.org/en-US/questions/1275168>).
+- `pdfjs.sidebarViewOnLoad = 2` to open the sidebar table of contents by default.
 
 ### TODO
 - syncing toolbar layout?
