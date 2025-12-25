@@ -1,0 +1,22 @@
+# Run as a user created like `useradd --home-dir='/home/${USER}' someone`.
+[Unit]
+Description=Example: specifier expansion
+
+[Service]
+Type=oneshot
+
+ExecStart=echo '=== echo $${HOME}'
+ExecStart=echo ${HOME}
+; /home/${USER}
+
+ExecStart=echo '=== echo $${USER}'
+ExecStart=echo ${USER}
+; someone
+
+ExecStart=echo '=== echo %%h'
+# Specifier replaced with `/home/${USER}` at load time, then `${USER}` further substituted before execution.
+ExecStart=echo %h
+; /home/someone
+
+[Install]
+WantedBy=default.target

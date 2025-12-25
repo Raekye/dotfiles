@@ -8,9 +8,9 @@ Hmmm...
 ```bash
 dnf upgrade --refresh
 reboot now
-#dnf install dnf-plugin-system-upgrade
-dnf system-upgrade download --releasever=42
-dnf system-upgrade reboot
+dnf system-upgrade download --releasever=43
+#dnf system-upgrade reboot # Up to and including 40.
+dnf5 offline reboot # 41 and above.
 dnf autoremove
 ```
 
@@ -24,6 +24,9 @@ dnf config-manager setopt updates-archive.enabled=0
 
 dnf --enable-repo=updates-archive info --showduplicates kernel
 ```
+
+### Batching Actions
+- <https://dnf5.readthedocs.io/en/stable/commands/do.8.html>.
 
 ### DNF and APT Equivalents
 - <https://docs.fedoraproject.org/en-US/quick-docs/dnf-vs-apt/>.

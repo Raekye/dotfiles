@@ -1,7 +1,7 @@
 let b:ale_linters = ['analyzer']
 
-" https://rust-analyzer.github.io/manual.html#configuration
-" https://rust-analyzer.github.io/manual.html#diagnostics
+" https://rust-analyzer.github.io/book/configuration.html
+" https://rust-analyzer.github.io/book/diagnostics.html
 let b:ale_rust_analyzer_config = {
 \	'workspace': {
 \		'symbol': {
@@ -11,6 +11,9 @@ let b:ale_rust_analyzer_config = {
 \		},
 \	},
 \	'diagnostics': {
-\		'disabled': ['remove-unnecessary-else'],
+\		'disabled': [
+\			'remove-unnecessary-else',
+\			'unlinked-file',
+\		],
 \	},
 \}

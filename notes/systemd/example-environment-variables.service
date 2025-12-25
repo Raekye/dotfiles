@@ -1,0 +1,23 @@
+[Unit]
+Description=Example: environment variables
+
+[Service]
+Type=oneshot
+Environment="FOO='one two' three"
+
+ExecStart=echo '=== printf [%%s]\\\\n $$FOO'
+ExecStart=printf [%%s]\\n $FOO
+; [one two]
+; [three]
+
+ExecStart=echo '=== printf [%%s]\\\\n "$$FOO"'
+ExecStart=printf [%%s]\\n "$FOO"
+; [one two]
+; [three]
+
+ExecStart=echo '=== printf [%%s]\\\\n $${FOO}'
+ExecStart=printf [%%s]\\n ${FOO}
+; ['one two' three]
+
+[Install]
+WantedBy=default.target

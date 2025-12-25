@@ -1,0 +1,21 @@
+[Unit]
+Description=Example: backslash escapes
+
+[Service]
+Type=oneshot
+
+ExecStart=echo '=== echo . [\\\\n] . [\\n] .'
+# By default, `echo` does not interpret backslash escapes; we will see "exactly what `echo` sees".
+ExecStart=echo . [\\n] . [\n] .
+; . [\n] . [
+; ] .
+
+ExecStart=echo '=== echo -e . [\\\\n] . [\\n] .'
+# Enable interpretation of backslash escapes.
+ExecStart=echo -e . [\\n] . [\n] .
+; . [
+; ] . [
+; ] .
+
+[Install]
+WantedBy=default.target

@@ -68,19 +68,24 @@ Sources:
 3. Where applicable, environment variables are expanded; in the case of command lines, for each item (i.e. argument):
 	- if the argument contains an identifier enclosed with curly braces, e.g. `${FOO}`,
 		then the variable is expanded into the same token; i.e. <q>always resulting in exactly a single argument</q>;
-	- if the argument solely consists of a dollar sign followed by an identifier, e.g. `$FOO`,
+	- if the argument is exactly a dollar sign followed by an identifier, e.g. `$FOO`,
 		then the variable is expanded **and further split on whitespace**, <q>resulting in zero or more arguments</q>.
 		<q>For this type of expansion, quotes are respected when splitting into words, and afterwards removed</q>.
 
 In particular:
-- `$FOO` and `"$FOO"` are always equivalent, and do not ensure that the expansion of `$FOO` will be passed as a single argument.
-- If a specifier expands to contain quotes or environment variables, those will be processed as if the user wrote the expansion.
+- `$FOO` and `"$FOO"` are always equivalent, and do not ensure that the expansion of `$FOO` will be passed as a single argument,
+	since unquoting happens before and separate from environment variable expansion.
+- If a specifier expands to contain quotes or environment variables, those will be processed as if the user wrote the expansion,
+	since specifiers are expanded when the unit file is loaded.
 
 See also:
 - [`specifier_printf`][specifier-printf]: the function that performs the specifier replacement.
 - [`replace_env_argv`][replace-env-argv]: the function that expands environment variables.
 
 #### Examples
+- See examples in [notes/systemd](systemd/).
+
+##### Example: backslash escapes
 ```systemd
 [Unit]
 Description=Example: backslash escapes
@@ -101,7 +106,7 @@ Outputs:
 ] .
 ```
 
----
+##### Example: environment variables
 ```systemd
 [Unit]
 Description=Example: environment variables
@@ -133,19 +138,20 @@ Outputs:
 ['one two' three]
 ```
 
----
+##### Example: specifier expansion
 ```bash
 useradd --home-dir='/home/${USER}' someone
 ```
 
 ```systemd
 [Unit]
-Description=Example: backslash escapes
+Description=Example: specifier expansion
 
 [Service]
 Type=oneshot
 ExecStart=echo ${HOME}
 ExecStart=echo ${USER}
+# Specifier replaced with `/home/${USER}` at load time, `${USER}` further substituted before execution.
 ExecStart=echo %h
 
 [Install]
@@ -163,7 +169,24 @@ someone
 ### Units
 - [Load paths](https://www.freedesktop.org/software/systemd/man/systemd.unit.html#Unit%20File%20Load%20Path).
 - [Specifiers (special variables)](https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html#Specifiers).
+
+#### Dependencies
+- [`Before=` and `After=`](https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html#Before=)
+- [`Requires=`](https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html#Requires=)
+- [`Wants=`](https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html#Wants=)
 - [Properties and their inverses](https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html#Mapping%20of%20unit%20properties%20to%20their%20inverses).
+
+`Requires=` and `Wants=` affect unit activation; when a dependant is started, its dependencies are also started.
+
+`Before=` and `After=` affect unit activation ordering; when both a dependant and a dependency is started together,
+the dependant's startup is delayed until its dependency has finished starting up.
+
+With only `Requires=`/`Wants=`, starting `dependant.service` "autostarts" `dependency.service` (if not already running),
+but they may start concurrently.
+With only `Before=`/`After=`, starting `dependant.service` doesn't automatically start `dependency.service`,
+but if they are being started together, `dependant.service` will be started after `dependency.service`.
+
+With `Requires=` and an ordering dependency, if `dependency.service` fails, `dependant.service` won't be started.
 
 ### Services
 - [`Type=`](https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html#Type=).
