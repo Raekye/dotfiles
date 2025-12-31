@@ -37,6 +37,7 @@ To make Firefox download such files into a proper temp folder again, the `about:
 - `signon.includeOtherSubdomainsInLookup` to disable autofill on a page from other subdomains of the site
 	(<https://support.mozilla.org/en-US/questions/1275168>).
 - `pdfjs.sidebarViewOnLoad = 2` to open the sidebar table of contents by default.
+- `pdfjs.defaultZoomValue = page-fit`.
 
 ### TODO
 - syncing toolbar layout?

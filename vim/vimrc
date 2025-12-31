@@ -66,6 +66,7 @@ set showcmd
 set laststatus=2 " Always show status line for last window.
 
 set wildmenu " Command line completion.
+set wildmode=list:longest,full
 if v:version >= 900
 	set wildoptions=pum " Display using popup menu.
 endif
@@ -80,6 +81,9 @@ set cursorlineopt=number
 set colorcolumn=120
 
 set sessionoptions=buffers
+
+" Might need to be after plug#end to avoid auto-detection...
+set background=light
 
 if has('termguicolors')
 	set termguicolors
@@ -207,13 +211,15 @@ Plug 'rust-lang/rust.vim'
 
 Plug 'https://github.com/preservim/vim-markdown'
 
+Plug 'SirVer/ultisnips'
+
 " Not really used...
 Plug 'sjl/gundo.vim'
 
 " Automatically executes `filetype plugin indent on` and `syntax on`.
 call plug#end()
 
-set background=light
+" set background=light
 
 " :help solarized8-options
 let g:solarized_visibility = "low"
@@ -232,7 +238,9 @@ endif
 " - `:cmap` -> `:cn[oremap]`: `mapmode-c`.
 
 " :help mode-Ex
-nn Q <Nop>
+" :help gt
+" `{count}gt` goes to tab page `{count}`; the first tab has number one.
+nn Q gt
 " :help CTRL-6
 nn <C-j> <C-^>
 
@@ -282,7 +290,7 @@ nn <leader>u :GundoToggle<CR>
 
 " By default, `<F1>` immediately opens help.
 " Remap it to prompt for a topic.
-nn <F1> :vert help<space>
+nn <F1> :tab help<space>
 " Disable `<F1>` in `mapmode-c` so it can be mashed.
 cno <F1> <Nop>
 

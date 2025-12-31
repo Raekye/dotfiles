@@ -1,4 +1,4 @@
-## `systemd`
+## systemd
 ```bash
 # Logs since the most recent boot (i.e. the current one).
 journalctl --boot=0
@@ -81,90 +81,7 @@ In particular:
 See also:
 - [`specifier_printf`][specifier-printf]: the function that performs the specifier replacement.
 - [`replace_env_argv`][replace-env-argv]: the function that expands environment variables.
-
-#### Examples
-- See examples in [notes/systemd](systemd/).
-
-##### Example: backslash escapes
-```systemd
-[Unit]
-Description=Example: backslash escapes
-
-[Service]
-Type=oneshot
-# By default, `echo` does not interpret backslash escapes; we will see "exactly what `echo` sees".
-ExecStart=echo . [\\n] . [\n] .
-
-[Install]
-WantedBy=default.target
-```
-
-Outputs:
-
-```
-. [\n] . [
-] .
-```
-
-##### Example: environment variables
-```systemd
-[Unit]
-Description=Example: environment variables
-
-[Service]
-Type=oneshot
-Environment="FOO='one two' three"
-ExecStart=echo == $$FOO
-ExecStart=printf [%%s]\\n $FOO
-ExecStart=echo == \"$$FOO\"
-ExecStart=printf [%%s]\\n "$FOO"
-ExecStart=echo == $${FOO}
-ExecStart=printf [%%s]\\n ${FOO}
-
-[Install]
-WantedBy=default.target
-```
-
-Outputs:
-
-```
-== $FOO
-[one two]
-[three]
-== "$FOO"
-[one two]
-[three]
-== ${FOO}
-['one two' three]
-```
-
-##### Example: specifier expansion
-```bash
-useradd --home-dir='/home/${USER}' someone
-```
-
-```systemd
-[Unit]
-Description=Example: specifier expansion
-
-[Service]
-Type=oneshot
-ExecStart=echo ${HOME}
-ExecStart=echo ${USER}
-# Specifier replaced with `/home/${USER}` at load time, `${USER}` further substituted before execution.
-ExecStart=echo %h
-
-[Install]
-WantedBy=default.target
-```
-
-Outputs:
-
-```
-/home/${USER}
-someone
-/home/someone
-```
+- Examples in [notes/systemd](systemd/).
 
 ### Units
 - [Load paths](https://www.freedesktop.org/software/systemd/man/systemd.unit.html#Unit%20File%20Load%20Path).
@@ -198,6 +115,7 @@ With `Requires=` and an ordering dependency, if `dependency.service` fails, `dep
 - [User/Group](https://www.freedesktop.org/software/systemd/man/latest/systemd.exec.html#User/Group%20Identity).
 - [Logging](https://www.freedesktop.org/software/systemd/man/latest/systemd.exec.html#Logging%20and%20Standard%20Input/Output).
 - [Setting environment variables](https://www.freedesktop.org/software/systemd/man/latest/systemd.exec.html#Environment).
+	- [`Environment=`](https://www.freedesktop.org/software/systemd/man/latest/systemd.exec.html#Environment=) can be specified multiple times.
 - [Environment variables set or propagated by the service manager](https://www.freedesktop.org/software/systemd/man/latest/systemd.exec.html#Environment%20Variables%20Set%20or%20Propagated%20by%20the%20Service%20Manager).
 - [`WorkingDirectory=`](https://www.freedesktop.org/software/systemd/man/latest/systemd.exec.html#WorkingDirectory=).
 

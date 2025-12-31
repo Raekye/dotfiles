@@ -1,5 +1,8 @@
 ## Fedora
-Hmmm...
+```bash
+dnf repoquery --installed --whatrequires=package
+dnf repoquery --installed --whatdepends=package
+```
 
 ### Upgrading Fedora
 - <https://docs.fedoraproject.org/en-US/quick-docs/upgrading-fedora-offline/>.
