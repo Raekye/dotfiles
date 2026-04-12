@@ -13,7 +13,7 @@ From <https://man.openbsd.org/OpenBSD-current/man1/tmux.1#OPTIONS>.
 - `-g` specifies a global session or window option (panes inherit from windows).
 - `-u` unsets an option.
 
-### Arrays
+#### Arrays
 From <https://github.com/tmux/tmux/wiki/Advanced-Use#array-options>.
 
 - Indices are specified with square brackets (e.g. `update-environment[999]`).

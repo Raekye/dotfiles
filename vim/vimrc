@@ -37,7 +37,9 @@ set fileformats=unix,dos
 
 set conceallevel=0
 set list
-set listchars=tab:>\ , " Add a comma here so that the space doesn't get trimmed by fixers/formatters.
+" let &listchars = "eol:\u240a" " https://www.unicode.org/charts/PDF/U2400.pdf
+set listchars=
+set listchars+=tab:>\ " Comment here so that trailing space doesn't get trimmed.
 set listchars+=multispace:-,lead:-,trail:-
 set listchars+=extends:>,precedes:<,conceal:!,nbsp:%
 if v:version >= 900

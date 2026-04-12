@@ -1,6 +1,14 @@
 ## Media Codecs
 Hmmm...
 
+### FFmpeg
+- <https://ffmpeg.org/>.
+
+```bash
+# MD5 checksum of stream 1 of file 0.
+ffmpeg -i foo.mkv -map 0:1 -c copy -f mp5 - # optionally: pipe stderr to /dev/null.
+```
+
 ### Audio Codecs
 <table>
 	<thead>
