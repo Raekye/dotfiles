@@ -47,17 +47,11 @@ Alternatively, to compare directories, I would use `--dry-run --verbose --recurs
 rsync *.c foo:src/
 ```
 
-```bash
-# This would recursively transfer all files from the directory `src/bar` on the machine `foo` into the `/data/tmp/bar` directory on the local machine.
-
-rsync -r foo:src/bar /data/tmp
-```
-
-```bash
-# A trailing slash on the source changes this behavior to avoid creating an additional directory level at the destination.
-
-rsync -r foo:src/bar/ /data/tmp
-```
+- `rsync -r foo/src bar/dst` (no trailing slash on `src`, "copy the directory by name"), optionally with trailing slash on `dst`:
+	- If `bar/dst` exists, `src` is placed at `bar/dst/src`.
+	- If `bar/dst` does not exist (but `bar` does), `src` is placed at `bar/dst`;
+		equivalent to `rsync -r foo/src/ bar/dst/`.
+- `rsync -r foo/src/ bar/dst` (trailing slash on `src`, "copy the contents of this directory"), optionally with trailing slash on `dst`: "copy the contents of `src` into (the contents of) `dst`.
 
 ```bash
 # You can think of a trailing `/` on the source as meaning "copy the contents of this directory" as opposed to "copy the directory by name",
@@ -66,12 +60,6 @@ rsync -r foo:src/bar/ /data/tmp
 
 rsync -a /src/foo /dest
 rsync -a /src/foo/ /dest/foo
-```
-
-```bash
-# When you want to copy a directory to a different name, use a trailing slash on the source directory to put the contents of the directory into any destination directory you like.
-
-rsync foo/ bar/
 ```
 
 #### `--itemize-changes` Output
@@ -106,9 +94,6 @@ For the attributes (everything following `YX`):
 
 #### Filtering
 TODO
-
-### Rclone
-- TODO
 
 ### GNU Make
 - Manual: <https://www.gnu.org/software/make/manual/>.

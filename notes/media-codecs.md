@@ -1,12 +1,41 @@
 ## Media Codecs
 Hmmm...
 
+### Hardware Acceleration (Fedora)
+- <https://rpmfusion.org/Howto/Multimedia>
+	- `libavcodec-freeworld`, `mesa-va-drivers-freeworld` (VA-API), and `mesa-vulkan-drivers-freeworld` (Vulkan) should be sufficient?
+- <https://fedoraproject.org/wiki/Hardware_Video_Acceleration>
+	- Alternatively `dnf swap ffmpeg-free ffmpeg --allowerasing`?
+- TODO: fedora free, nonfree...
+
 ### FFmpeg
-- <https://ffmpeg.org/>.
+- <https://ffmpeg.org/>
 
 ```bash
 # MD5 checksum of stream 1 of file 0.
 ffmpeg -i foo.mkv -map 0:1 -c copy -f mp5 - # optionally: pipe stderr to /dev/null.
+```
+
+```
+# ffmpeg -hide_banner -codecs
+Codecs:
+ D..... = Decoding supported
+ .E.... = Encoding supported
+ ..V... = Video codec
+ ..A... = Audio codec
+ ..S... = Subtitle codec
+ ..D... = Data codec
+ ..T... = Attachment codec
+ ...I.. = Intra frame-only codec
+ ....L. = Lossy compression
+ .....S = Lossless compression
+ -------
+ DEV.L. av1                  Alliance for Open Media AV1 ...
+ DEV.L. hevc                 H.265 / HEVC (High Efficiency Video Coding) ...
+ DEV.LS h264                 H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10 ...
+ DEA.L. aac                  AAC (Advanced Audio Coding) ...
+ DEAI.S alac                 ALAC (Apple Lossless Audio Codec) ...
+ DEAI.S flac                 FLAC (Free Lossless Audio Codec) ...
 ```
 
 ### Audio Codecs

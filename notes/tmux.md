@@ -3,7 +3,10 @@
 - <https://github.com/tmux/tmux/wiki>
 - `man 1 tmux`
 
-## Options
+### Hotkeys
+TODO
+
+### Options
 From <https://man.openbsd.org/OpenBSD-current/man1/tmux.1#OPTIONS>.
 
 - `-s` specifies a global server option.

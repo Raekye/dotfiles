@@ -10,6 +10,9 @@ let b:ale_rust_analyzer_config = {
 \			},
 \		},
 \	},
+\	'cargo': {
+\		'features': 'all',
+\	},
 \	'diagnostics': {
 \		'disabled': [
 \			'remove-unnecessary-else',

@@ -27,7 +27,7 @@ commas (`,`) in the table are just for readability.
 The table is shown for `noexpandtab`; for `expandtab`, simply replace the digits (tabs) with dots (spaces).
 
 | Configuration         | Text        | Result entering <kbd>Tab</kbd> | Result indenting (e.g. `>>`) |
-======================================================================================================|
+|=======================+=============+================================+==============================|
 | `set ts=8 sts=0 sw=8` |             | 12345678                       |                              |
 | `set ts=8 sts=0 sw=8` | --          | --123456                       | 12345678,--                  |
 | `set ts=8 sts=0 sw=8` | 12345678    | 12345678,12345678              | 12345678,12345678            |
@@ -82,18 +82,22 @@ Source: [readme][vim-gitgutter-readme].
 
 ### Mapping the Escape Key
 - Vim's termresponse feature and how it interacts with mapping the escape key:
-	- https://stackoverflow.com/a/15015109
-	- https://vi.stackexchange.com/a/2620
-	- https://vi.stackexchange.com/a/19073
+	- <https://stackoverflow.com/a/15015109>
+	- <https://vi.stackexchange.com/a/2620>
+	- <https://vi.stackexchange.com/a/19073>
 
 For me, mapping `<Esc>` seems fine in vim 9.
 However, on vim 8, I need to set `noesckeys`.
 
 #### Terminal Escape Codes
-- https://notes.burke.libbey.me/ansi-escape-codes/
-- https://www.man7.org/linux/man-pages/man4/console_codes.4.html
-- https://espterm.github.io/docs/VT100%20escape%20codes.html
-- https://www.xfree86.org/current/ctlseqs.html
+- <https://notes.burke.libbey.me/ansi-escape-codes/>
+- <https://www.man7.org/linux/man-pages/man4/console_codes.4.html>
+- <https://espterm.github.io/docs/VT100%20escape%20codes.html>
+- <https://www.xfree86.org/current/ctlseqs.html>
+
+### ALE
+- <https://github.com/dense-analysis/ale>
+- <https://github.com/dense-analysis/ale/blob/master/supported-tools.md>
 
 ### Other
-- https://vim.fandom.com/wiki/Unused_keys
+- <https://vim.fandom.com/wiki/Unused_keys>
