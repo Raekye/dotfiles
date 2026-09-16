@@ -27,7 +27,7 @@ commas (`,`) in the table are just for readability.
 The table is shown for `noexpandtab`; for `expandtab`, simply replace the digits (tabs) with dots (spaces).
 
 | Configuration         | Text        | Result entering <kbd>Tab</kbd> | Result indenting (e.g. `>>`) |
-|=======================+=============+================================+==============================|
+| --------------------- | ----------- | ------------------------------ | ---------------------------- |
 | `set ts=8 sts=0 sw=8` |             | 12345678                       |                              |
 | `set ts=8 sts=0 sw=8` | --          | --123456                       | 12345678,--                  |
 | `set ts=8 sts=0 sw=8` | 12345678    | 12345678,12345678              | 12345678,12345678            |

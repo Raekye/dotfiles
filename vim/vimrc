@@ -82,6 +82,8 @@ set cursorlineopt=number
 
 set colorcolumn=120
 
+set belloff=esc
+
 set sessionoptions=buffers
 
 " Might need to be after plug#end to avoid auto-detection...
